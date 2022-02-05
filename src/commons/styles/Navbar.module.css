@@ -1,0 +1,53 @@
+.nav {
+  height: 140px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: relative;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.title {
+  position: absolute;
+  left: 5%;
+  top: 28%;
+  color: #6379f4;
+  font-size: 29px;
+  font-weight: 700;
+  font-family: "Nunito Sans";
+}
+
+.profile {
+  width: 20%;
+  top: 25%;
+  height: 52px;
+  position: absolute;
+  right: 5%;
+}
+
+.profile img {
+  border-radius: 10px;
+}
+
+.profile .name {
+  font-family: "Nunito Sans";
+  font-size: 18px;
+  font-weight: 700;
+  position: absolute;
+  top: 0;
+  left: 23%;
+}
+
+.profile .phone {
+  color: rgba(58, 61, 66, 0.9);
+  position: absolute;
+  bottom: -35%;
+  left: 23%;
+  font-family: "Nunito Sans";
+}
+
+.profile .icon {
+  position: absolute;
+  right: 8%;
+  top: 25%;
+}

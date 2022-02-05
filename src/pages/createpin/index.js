@@ -1,4 +1,5 @@
-import styles from "../../commons/styles/login.module.css";
+import styles from "../../commons/styles/signup.module.css";
+import "../../commons/styles/createpin.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../commons/components/Layout";
@@ -8,7 +9,7 @@ import Image1 from "../../commons/images/png-phone.png";
 
 function Login() {
   return (
-    <Layout title="Login">
+    <Layout title="Create Pin">
       <div className={styles.main}>
         <div className={styles.left}>
           <p className={styles.title}>Zwallet</p>
@@ -35,26 +36,8 @@ function Login() {
           </div>
         </div>
         <div className={styles.right}>
-          <h2 className={styles.desc}>Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users</h2>
-          <p className={styles.text}>Transfering money is eassier than ever, you can access Zwallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
-          <form>
-            <div className={`${styles["mb-3"]}`}>
-              <input type="email" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your email`} />
-            </div>
-            <div className={styles["mb-3"]}>
-              <input type="password" className={`form-control shadow-none ${styles["forms"]}`} id="exampleInputPassword1" placeholder="Enter your password" />
-              <div className={styles.link}>
-                <Link href="/login">Forgot your password?</Link>
-              </div>
-            </div>
-          </form>
-          <button className={`btn btn-secondary ${styles.button}`}>Login</button>
-          <div className={styles.signup}>
-            <p>
-              Don{"`"}t have an account? Let{"`"}s
-            </p>
-            <Link href="/signup"> sign Up</Link>
-          </div>
+          <h2 className={styles.desc}>Secure Your Account, Your Wallet, and Your Data With 6 Digits PIN That You Created Yourself.</h2>
+          <p className={styles.text}>Create 6 digits pin to secure all your money and your data in Zwallet app. Keep it secret and don’t tell anyone about your Zwallet account password and the PIN.</p>
         </div>
       </div>
     </Layout>

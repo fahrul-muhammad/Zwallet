@@ -1,4 +1,4 @@
-import styles from "../../commons/styles/login.module.css";
+import styles from "../../commons/styles/signup.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../commons/components/Layout";
@@ -8,7 +8,7 @@ import Image1 from "../../commons/images/png-phone.png";
 
 function Login() {
   return (
-    <Layout title="Login">
+    <Layout title="Sign Up">
       <div className={styles.main}>
         <div className={styles.left}>
           <p className={styles.title}>Zwallet</p>
@@ -38,6 +38,12 @@ function Login() {
           <h2 className={styles.desc}>Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users</h2>
           <p className={styles.text}>Transfering money is eassier than ever, you can access Zwallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
           <form>
+            <div className={`${styles["mb-3"]}`}>
+              <input type="text" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your firstname`} />
+            </div>
+            <div className={`${styles["mb-3"]}`}>
+              <input type="text" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your lastname`} />
+            </div>
             <div className={`${styles["mb-3"]}`}>
               <input type="email" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your email`} />
             </div>

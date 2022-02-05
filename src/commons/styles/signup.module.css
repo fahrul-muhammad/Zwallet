@@ -64,7 +64,7 @@
   width: 433px;
   height: 57px;
   position: absolute;
-  top: 70%;
+  top: 83%;
   left: 15%;
   color: #88888f;
   font-family: "Nunito Sans";
@@ -78,7 +78,7 @@
   width: 433px;
   height: 57px;
   position: absolute;
-  top: 70%;
+  top: 83%;
   left: 15%;
   color: white;
   font-family: "Nunito Sans";
@@ -100,7 +100,7 @@
 .signup {
   display: flex;
   position: absolute;
-  top: 80%;
+  bottom: 0%;
   width: 100%;
   justify-content: center;
   font-family: "Nunito Sans";
