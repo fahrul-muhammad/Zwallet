@@ -49,12 +49,19 @@
 
 .mb-3 {
   width: 85%;
-  margin: 3% 0% 5% 7.5%;
+  margin: 8% 0% 5% 7.5%;
   position: relative;
 }
 
 .mb-3 > Link {
   color: black;
+}
+
+.mb-3 i {
+  position: absolute;
+  top: 15%;
+  left: 1%;
+  color: rgba(169, 169, 169, 0.6);
 }
 
 .button {
@@ -100,7 +107,7 @@
 .signup {
   display: flex;
   position: absolute;
-  top: 80%;
+  bottom: 0%;
   width: 100%;
   justify-content: center;
   font-family: "Nunito Sans";
@@ -139,24 +146,19 @@
   padding-left: 5%;
 }
 
-.mb-3 i {
-  position: absolute;
-  top: 15%;
-  left: 1%;
-  color: #a9a9a9;
-}
-
-.mb-3:focus i {
-  color: #6379f4;
-}
-
 .forms:focus {
+  padding-left: 5%;
   border-bottom: 2px solid #6379f4;
   border-radius: 0;
   background-color: white;
 }
 
+.forms:focus i {
+  color: #6379f4;
+}
+
 .forms::placeholder {
+  padding-left: 5%;
   color: rgba(169, 169, 169, 0.8);
 }
 
@@ -194,24 +196,4 @@
   padding-right: 25%;
   font-weight: 400;
   line-height: 23px;
-}
-
-.errorMsg {
-  position: absolute;
-  width: 100%;
-  top: 65%;
-  text-align: center;
-  color: #ff5b37;
-  display: none;
-  transition: 0.5s;
-}
-
-.successMsg {
-  position: absolute;
-  width: 100%;
-  top: 65%;
-  text-align: center;
-  color: #23da32;
-  display: none;
-  transition: 0.5s;
 }

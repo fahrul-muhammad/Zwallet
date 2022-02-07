@@ -3,10 +3,13 @@ import styles from "../styles/Navbar.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
 import Default from "../images/dummy-profile.png";
 import bell from "../images/bell.png";
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   render() {
     return (
       <nav className={styles.nav}>
@@ -18,8 +21,8 @@ export default class Navbar extends Component {
             </div>
           </Link>
 
-          <p className={styles.name}>Fahrul Muhammad</p>
-          <p className={styles["phone"]}>+62 8139 3877 7946</p>
+          <p className={styles.name}>{`${this.props.users.firstName} ${this.props.users.lastName}`}</p>
+          <p className={styles["phone"]}>{this.props.users.noTelp !== null ? this.props.users.noTelp : "---"}</p>
           <div className={styles["icon"]}>
             <Image src={bell} alt="bell" />
           </div>
@@ -28,3 +31,12 @@ export default class Navbar extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.auth.userData,
+    token: state.auth.token,
+  };
+};
+
+export default connect(mapStateToProps)(Navbar);

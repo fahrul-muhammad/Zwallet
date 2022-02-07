@@ -18,6 +18,21 @@
   padding-left: 35%;
 }
 
+.main button {
+  text-decoration: none;
+  font-family: "Nunito Sans";
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: none !important;
+}
+
+.main button:hover {
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: none !important;
+}
+
 .main ul {
   padding-left: 0;
   padding-top: 10%;
@@ -74,4 +89,59 @@
 .logout .icon {
   position: absolute;
   left: 15%;
+}
+
+.modalContainer {
+  position: absolute;
+  border-radius: 10px;
+  top: 10%;
+  right: -300%;
+  width: 700px;
+  height: 400px;
+  background-color: rgba(185, 185, 185, 0.507);
+  z-index: 999;
+  backdrop-filter: blur(20px);
+}
+
+.modalContainer p {
+  padding-top: 5%;
+  padding-left: 5%;
+  font-family: "Nunito Sans";
+  font-weight: 700;
+  font-size: 20px;
+  color: black;
+}
+
+.modalContainer h6 {
+  padding-left: 5%;
+}
+
+.modalContainer .modal-input {
+  width: 90%;
+  margin-top: 5%;
+  height: 65px;
+  border: none;
+  margin-left: 5%;
+}
+
+.modalContainer input:focus {
+  border: none;
+}
+
+.modalContainer button {
+  position: absolute;
+  bottom: 8%;
+  right: 5%;
+  border: none;
+  background-color: #6379f4;
+  color: white;
+}
+
+.modalContainer button:hover {
+  position: absolute;
+  bottom: 8%;
+  right: 5%;
+  border: none;
+  background-color: #6379f4;
+  color: white;
 }

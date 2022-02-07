@@ -183,3 +183,12 @@
   font-weight: 400;
   line-height: 23px;
 }
+.errorMsg {
+  position: absolute;
+  width: 100%;
+  top: 78%;
+  display: none;
+  text-align: center;
+  color: #ff5b37;
+  transition: 0.5s;
+}
