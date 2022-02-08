@@ -5,6 +5,7 @@ import Layout from "../../commons/components/Layout";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { loginAction, saveAction } from "../../Redux/actions/auth";
+import { withRouter } from "next/router";
 
 import css from "../../commons/styles/profile.module.css";
 import Image from "next/image";
@@ -41,6 +42,7 @@ class index extends Component {
 
   render() {
     const profilepic = `${process.env.NEXT_PUBLIC_HOST}/uploads/${this.props.users.image}`;
+    const { router } = this.props;
     return (
       <Layout title="Profile">
         <div className={css["wrapper"]}>
@@ -67,7 +69,12 @@ class index extends Component {
               <p>Change Password</p>
               <i className="bi bi-arrow-right-short" />
             </div>
-            <div className={css.cardDetail}>
+            <div
+              className={css.cardDetail}
+              onClick={() => {
+                router.push("/createpin");
+              }}
+            >
               <p>Change Pin</p>
               <i className="bi bi-arrow-right-short" />
             </div>
@@ -96,4 +103,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToPropps)(index);
+export default withRouter(connect(mapStateToProps, mapDispatchToPropps)(index));

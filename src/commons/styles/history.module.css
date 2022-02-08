@@ -1,0 +1,136 @@
+.wrapper {
+  background-color: #fafcff;
+  height: 961px;
+}
+
+.content {
+  background-color: #fafcff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  height: 100vh;
+  width: 70%;
+  right: 5%;
+  top: 25%;
+  position: absolute;
+  border-radius: 25px;
+}
+
+.content p:first-child {
+  padding-left: 5%;
+  padding-top: 3%;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #3a3d42;
+}
+
+.content select {
+  position: absolute;
+  height: 40px;
+  width: 155px;
+  right: 5%;
+  top: 3%;
+  background-color: rgba(58, 61, 66, 0.1);
+  border: none;
+  border-radius: 12px;
+}
+
+.content .card {
+  width: 90%;
+  height: 60px;
+  margin: 3.5% auto 3.5% auto;
+  position: relative;
+}
+
+.card img {
+  border-radius: 10px;
+}
+
+.card .name {
+  position: absolute;
+  top: 0;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;
+  left: 10%;
+  color: #4d4b57;
+}
+
+.card .type {
+  position: absolute;
+  top: 60%;
+  left: 10%;
+  font-family: Nunito Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  color: #7a7886;
+}
+
+.card .money {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  color: #1ec15f;
+}
+
+.card .other {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  color: #ff5b37;
+}
+
+.button-container {
+  width: 50%;
+  margin: auto;
+  justify-content: space-around;
+  display: flex;
+}
+
+.button-container button {
+  width: 30%;
+  background-color: #6379f4;
+  border: none;
+  color: white;
+  font-family: "Nunito Sans";
+}
+
+.button-container button:hover {
+  width: 30%;
+  background-color: #6379f4;
+  border: none;
+  color: white;
+  font-family: "Nunito Sans";
+}
+
+.zeroHistory {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  font-family: "Nunito Sans";
+  font-size: 24px;
+}

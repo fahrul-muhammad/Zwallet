@@ -1,0 +1,251 @@
+.wrapper {
+  background-color: #fafcff;
+  height: 961px;
+}
+
+.content {
+  background-color: #fafcff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  height: 100vh;
+  width: 70%;
+  right: 5%;
+  top: 25%;
+  position: absolute;
+  border-radius: 25px;
+}
+
+.content p:first-child {
+  padding-top: 3%;
+  padding-left: 5%;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #3a3d42;
+}
+
+.userCard {
+  background-color: white;
+  width: 90%;
+  height: 110px;
+  border-radius: 10px;
+  margin: 3% auto 0% auto;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.userCard:hover {
+  cursor: pointer;
+}
+
+.userCard .cardImage {
+  position: absolute;
+  top: 18%;
+  left: 3%;
+  height: 70px;
+  width: 70px;
+}
+
+.cardImage img {
+  border-radius: 10px;
+}
+
+.cardName {
+  position: absolute;
+  left: 13%;
+  top: 18%;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #4d4b57;
+}
+
+.cardPhone {
+  position: absolute;
+  left: 13%;
+  bottom: 5%;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #7a7886;
+}
+
+.content h6 {
+  padding-top: 5%;
+  padding-left: 5%;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.inputAmount {
+  width: 250px;
+  height: 50px;
+  border-radius: 0%;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid rgba(169, 169, 169, 0.6);
+  position: absolute;
+  top: 58%;
+  left: 39%;
+}
+
+.inputText {
+  width: 343px;
+  height: 50px;
+  border-radius: 0%;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid rgba(169, 169, 169, 0.6);
+  position: absolute;
+  top: 70%;
+  left: 35%;
+}
+
+.inputText:focus {
+  width: 343px;
+  height: 50px;
+  border-radius: 0%;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid#6379F4;
+}
+
+.content .inputAmount:focus {
+  width: 250px;
+  height: 50px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid#6379F4;
+}
+
+.content button {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 170px;
+  height: 57px;
+  background-color: #6379f4;
+  color: white;
+  font-family: "Nunito Sans";
+  border-radius: 12px;
+  border: none;
+}
+
+.content button:hover {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 170px;
+  height: 57px;
+  background-color: #6379f4;
+  color: white;
+  font-family: "Nunito Sans";
+  border-radius: 12px;
+}
+
+.content button:last-child {
+  position: absolute;
+  left: 5%;
+}
+
+.btnClose {
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: none !important;
+}
+
+.btnClose:hover {
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: none !important;
+}
+
+.inputdone-card {
+  width: 90%;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: 92px;
+  margin: 1% auto 2% auto;
+  background-color: white;
+  position: relative;
+}
+
+.inputdone-card p:first-child {
+  padding-top: 1.5%;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #7a7886;
+}
+
+.inputdone-card p:last-child {
+  padding-top: 0%;
+  padding-left: 5%;
+  font-family: Nunito Sans;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #514f5b;
+}
+
+.enterPin {
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.modal-btn {
+  width: 170px;
+  height: 57px;
+  color: white;
+  border: none;
+  background-color: #6379f4;
+}
+.modal-btn:hover {
+  width: 170px;
+  height: 57px;
+  color: white;
+  border: none;
+  background-color: #6379f4;
+}
+
+.successImage {
+  position: absolute;
+  top: 3%;
+  left: 45%;
+}
+
+.successNotif {
+  margin-top: 30%;
+  width: 100%;
+  text-align: center;
+}

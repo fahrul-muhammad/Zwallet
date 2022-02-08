@@ -92,24 +92,16 @@
 }
 
 .modalContainer {
-  position: absolute;
   border-radius: 10px;
-  top: 10%;
-  right: -300%;
-  width: 700px;
-  height: 400px;
-  background-color: rgba(185, 185, 185, 0.507);
-  z-index: 999;
-  backdrop-filter: blur(20px);
 }
 
-.modalContainer p {
+.modalContainer .textModal {
   padding-top: 5%;
   padding-left: 5%;
   font-family: "Nunito Sans";
-  font-weight: 700;
-  font-size: 20px;
-  color: black;
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(58, 61, 66, 0.6);
 }
 
 .modalContainer h6 {
@@ -119,29 +111,77 @@
 .modalContainer .modal-input {
   width: 90%;
   margin-top: 5%;
+  margin-bottom: 5%;
   height: 65px;
-  border: none;
+  border: 1px solid rgba(169, 169, 169, 0.6);
   margin-left: 5%;
 }
 
 .modalContainer input:focus {
-  border: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1.5px solid rgba(169, 169, 169, 0.6);
 }
 
-.modalContainer button {
-  position: absolute;
-  bottom: 8%;
-  right: 5%;
+.modalContainer .submitbtn {
   border: none;
   background-color: #6379f4;
   color: white;
 }
 
-.modalContainer button:hover {
-  position: absolute;
-  bottom: 8%;
-  right: 5%;
+.modalContainer .submitbtn:hover {
   border: none;
   background-color: #6379f4;
   color: white;
+}
+
+.btnClose {
+  background-color: rgba(255, 255, 255, 0) !important;
+  border: none;
+  box-shadow: none;
+}
+
+.btnClose:hover {
+  background-color: rgba(255, 255, 255, 0) !important;
+  border: none;
+  box-shadow: none;
+}
+
+.successTopUp a {
+  text-decoration: none;
+  color: black;
+  margin-top: 3%;
+  padding-left: 5%;
+  color: #4bb543;
+  font-family: "Nunito Sans";
+  font-size: 18px;
+}
+
+.errorTopup {
+  text-decoration: none;
+  color: black;
+  margin-top: 3%;
+  padding-left: 5%;
+  color: #cc0000;
+  font-family: "Nunito Sans";
+  font-size: 18px;
+}
+
+.LogoutText {
+  width: 100%;
+  text-align: center;
+  font-family: "Nunito Sans";
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.log-out-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.log-out-btn button {
+  width: 30%;
 }

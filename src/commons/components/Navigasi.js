@@ -1,19 +1,72 @@
 import css from "../styles/Navigasi.module.css";
 import { Component } from "react";
-
+import { Modal } from "react-bootstrap";
 import Link from "next/link";
 import { withRouter } from "next/router";
+import { TopUp } from "../../modules/transaction/index";
+import { connect } from "react-redux";
+import { Logout } from "../../modules/auth/index";
+
+import { bindActionCreators } from "redux";
+import { loginAction, saveAction, logout } from "../../Redux/actions/auth";
 
 class Navigasi extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isHide: true,
+      isSuccess: true,
+      isError: true,
+      amount: 0,
+      redirectUrl: "",
+      isLogOut: false,
     };
   }
 
+  formChange = (e) => {
+    const data = { ...this.state };
+    data[e.target.name] = e.target.value;
+    this.setState(data);
+    console.log(this.state);
+  };
+
+  userTopUp = () => {
+    const body = this.state;
+    const token = this.props.token;
+    TopUp(body, token)
+      .then((res) => {
+        console.log(res.data.data.redirectUrl);
+        this.setState({ redirectUrl: res.data.data.redirectUrl });
+        this.setState({ isSuccess: false });
+        this.setState({ isError: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ isSuccess: true });
+        this.setState({ isError: false });
+      });
+  };
+
   modalTrigger = () => {
     this.setState({ isHide: !this.state.isHide });
+  };
+
+  userLogOut = () => {
+    const token = this.props.token;
+    const { router } = this.props;
+    Logout(token)
+      .then((res) => {
+        console.log(res.data);
+        this.props.logout();
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  isLogout = () => {
+    this.setState({ isLogOut: !this.state.isLogOut });
   };
 
   render() {
@@ -23,7 +76,7 @@ class Navigasi extends Component {
         <ul>
           <li>
             <Link href="/home">
-              <a className={router.pathname == "/home" ? css.active : ""}>
+              <a className={router.pathname == "/home" || router.pathname == "/history" ? css.active : ""}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className={`bi bi-columns-gap ${css["icon"]} `} viewBox="0 0 16 16">
                   <path d="M6 1v3H1V1h5zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12v3h-5v-3h5zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8v7H1V8h5zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6v7h-5V1h5zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z" />
                 </svg>
@@ -33,7 +86,7 @@ class Navigasi extends Component {
           </li>
           <li>
             <Link href="/transfer">
-              <a className={router.pathname == "/transfer" ? css.active : ""}>
+              <a className={router.pathname == "/transfer" || router.pathname == "/transfer/:id" ? css.active : ""}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className={`bi bi-arrow-up-short ${css["icon"]} `} viewBox="0 0 16 16">
                   <path fill="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
                 </svg>
@@ -63,23 +116,73 @@ class Navigasi extends Component {
           </li>
         </ul>
 
-        <div className={css.logout}>
+        <div className={css.logout} onClick={this.isLogout}>
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className={`bi bi-arrow-bar-right ${css["icon"]} `} viewBox="0 0 16 16">
             <path fill="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z" />
           </svg>
           <p>Logout</p>
         </div>
-        <div className={css.modalContainer} hidden={this.state.isHide}>
-          <p>Top Up</p>
-          <h6>
-            Enter the amount of money, and click <br /> submit
-          </h6>
-          <input type="number" className={`form-control ${css["modal-input"]} shadow-none`} name="amount" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
-          <button className="btn btn-secondary">Submit</button>
-        </div>
+        <Modal show={!this.state.isHide} centered className={`  ${css.modalContainer}`}>
+          <Modal.Header>
+            <h5>Top Up</h5>
+            <button type="button" className={`btn-close ${css.btnClose}`} data-bs-dismiss="modal" aria-label="Close" onClick={this.modalTrigger}></button>
+            <br />
+          </Modal.Header>
+          <Modal.Body>
+            <p className={css.textModal}>
+              Enter the amount of money, and click <br /> submit
+            </p>
+            <input className={`form-control shadow-none ${css["modal-input"]}`} type="number" placeholder="" name="amount" aria-label="default input example" onChange={this.formChange} />
+            <p className={css.successTopUp} hidden={this.state.isSuccess}>
+              <Link href={this.state.redirectUrl} passHref>
+                <a target="_blank"> Top Up success,Please Pay Top up</a>
+              </Link>
+            </p>
+            <p className={css.errorTopup} hidden={this.state.isError}>
+              Top Up failed,try again
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <button className={`btn btn-secondary ${css.submitbtn}`} onClick={this.userTopUp}>
+              Submit
+            </button>
+          </Modal.Footer>
+        </Modal>
+        {/* MODAL LOG OUT */}
+        <Modal show={this.state.isLogOut} centered>
+          <Modal.Header>
+            <button type="button" className={`btn-close ${css.btnClose}`} data-bs-dismiss="modal" aria-label="Close" onClick={this.isLogout}></button>
+          </Modal.Header>
+          <Modal.Body>
+            <p className={css.LogoutText}>Are you sure to Log Out?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <div className={css["log-out-btn"]}>
+              <button className="btn btn-danger" onClick={this.userLogOut}>
+                Yes
+              </button>
+              <button className="btn btn-success">No</button>
+            </div>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
 }
 
-export default withRouter(Navigasi);
+const mapDispatchToPropps = (dispacth) => {
+  return {
+    setUsers: bindActionCreators(saveAction, dispacth),
+    setAuth: bindActionCreators(loginAction, dispacth),
+    logout: bindActionCreators(logout, dispacth),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.auth.userData,
+    token: state.auth.token,
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToPropps)(Navigasi));

@@ -1,0 +1,133 @@
+.wrapper {
+  background-color: #fafcff;
+  height: 961px;
+}
+
+.content {
+  background-color: #fafcff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  height: 100vh;
+  width: 70%;
+  right: 5%;
+  top: 25%;
+  position: absolute;
+  border-radius: 25px;
+}
+
+.content p:first-child {
+  padding-top: 3%;
+  padding-left: 5%;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  color: #3a3d42;
+}
+
+.mb-3 {
+  width: 90%;
+  height: 54px;
+  margin: auto;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.mb-3 i {
+  position: absolute;
+  top: 30%;
+  left: 2%;
+}
+
+.content input {
+  height: 100%;
+  margin: auto;
+  background-color: rgba(58, 61, 66, 0.1);
+  border-radius: 12px;
+  padding-left: 5%;
+}
+
+.content input:focus {
+  background-color: rgba(58, 61, 66, 0.1);
+  border: none;
+}
+
+.content input::placeholder {
+  padding-left: 5%;
+}
+
+.userCard {
+  background-color: white;
+  width: 90%;
+  height: 110px;
+  border-radius: 10px;
+  margin: 3% auto 3% auto;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.userCard:hover {
+  cursor: pointer;
+}
+
+.userCard .cardImage {
+  position: absolute;
+  top: 18%;
+  left: 3%;
+  height: 70px;
+  width: 70px;
+}
+
+.cardImage img {
+  border-radius: 10px;
+}
+
+.cardName {
+  position: absolute;
+  left: 13%;
+  top: 18%;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #4d4b57;
+}
+
+.cardPhone {
+  position: absolute;
+  left: 13%;
+  bottom: 5%;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #7a7886;
+}
+
+.button-container {
+  width: 60%;
+  display: flex;
+  margin: 10% auto;
+  justify-content: space-around;
+}
+
+.button-container button {
+  width: 40%;
+  background-color: #6379f4;
+  color: white;
+  border: none;
+}
+
+.button-container button:hover {
+  width: 40%;
+  background-color: #6379f4;
+  color: white;
+  border: none;
+}

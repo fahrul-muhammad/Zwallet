@@ -2,3 +2,271 @@
   background-color: #fafcff;
   height: 961px;
 }
+
+.content {
+  height: 100vh;
+  width: 70%;
+  right: 5%;
+  top: 25%;
+  position: absolute;
+  border-radius: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30% 70%;
+  grid-template-areas:
+    "balance balance"
+    "chart history";
+  font-family: "Nunito Sans";
+}
+
+.balance {
+  grid-area: balance;
+  background-color: #6379f4;
+  border-radius: 20px;
+  margin-bottom: 1%;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.balance p:first-child {
+  color: #e0e0e0;
+  padding-left: 5%;
+  padding-top: 3%;
+  font-size: 18px;
+}
+
+.balance h1 {
+  font-size: 40px;
+  color: white;
+  font-weight: 700;
+  padding-left: 5%;
+}
+
+.balance p {
+  padding-left: 5%;
+  font-size: 14px;
+  font-weight: 600;
+  color: #dfdcdc;
+}
+
+.balance button {
+  height: 57px;
+  width: 162px;
+}
+
+.balance button i {
+  padding-right: 15%;
+  color: #b5b0ed;
+}
+
+.balance .top-up {
+  position: absolute;
+  right: 5%;
+  bottom: 15%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  border: 1px solid white;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.balance .transfer {
+  position: absolute;
+  right: 5%;
+  top: 15%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  border: 1px solid white;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.chart {
+  grid-area: chart;
+  background-color: bisque;
+  margin-right: 2%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 25px;
+}
+
+.history {
+  grid-area: history;
+  margin-left: 2%;
+  border-radius: 25px;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.history p:first-child {
+  padding-left: 5%;
+  padding-top: 5%;
+  font-size: 18px;
+  font-weight: 700;
+  color: #3a3d42;
+}
+
+.history-card {
+  width: 90%;
+  height: 56px;
+  margin: 5% auto 5% auto;
+  position: relative;
+  font-family: "Nunito Sans";
+}
+
+.history-card img {
+  border-radius: 10px;
+}
+
+.history-card .CardName {
+  position: absolute;
+  top: 0;
+  left: 15%;
+  color: #4d4b57;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.history-card .CardStatus {
+  position: absolute;
+  top: 60%;
+  left: 15%;
+  color: #7a7886;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.history-card .pengeluaran {
+  position: absolute;
+  right: 0;
+  top: 30%;
+  color: #1ec15f;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.history-container h3 {
+  text-align: center;
+  margin-top: 30%;
+}
+
+.HistoryLink {
+  top: 5.5%;
+  right: 5.5%;
+  position: absolute;
+}
+
+.HistoryLink a {
+  text-decoration: none;
+  color: #6379f4;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* MODAL */
+
+.modalContainer {
+  border-radius: 10px;
+}
+
+.modalContainer .textModal {
+  padding-top: 5%;
+  padding-left: 5%;
+  font-family: "Nunito Sans";
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(58, 61, 66, 0.6);
+}
+
+.modalContainer h6 {
+  padding-left: 5%;
+}
+
+.modalContainer .modal-input {
+  width: 90%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  height: 65px;
+  border: 1px solid rgba(169, 169, 169, 0.6);
+  margin-left: 5%;
+}
+
+.modalContainer input:focus {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1.5px solid rgba(169, 169, 169, 0.6);
+}
+
+.modalContainer .submitbtn {
+  border: none;
+  background-color: #6379f4;
+  color: white;
+}
+
+.modalContainer .submitbtn:hover {
+  border: none;
+  background-color: #6379f4;
+  color: white;
+}
+
+.btnClose {
+  background-color: rgba(255, 255, 255, 0) !important;
+  border: none;
+  box-shadow: none;
+}
+
+.btnClose:hover {
+  background-color: rgba(255, 255, 255, 0) !important;
+  border: none;
+  box-shadow: none;
+}
+
+.successTopUp a {
+  text-decoration: none;
+  color: black;
+  margin-top: 3%;
+  padding-left: 5%;
+  color: #4bb543;
+  font-family: "Nunito Sans";
+  font-size: 18px;
+}
+
+.errorTopup {
+  text-decoration: none;
+  color: black;
+  margin-top: 3%;
+  padding-left: 5%;
+  color: #cc0000;
+  font-family: "Nunito Sans";
+  font-size: 18px;
+}
+
+.money {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  color: #1ec15f;
+}
+
+.other {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  color: #ff5b37;
+}
