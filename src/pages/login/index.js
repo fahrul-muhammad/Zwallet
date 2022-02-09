@@ -45,8 +45,9 @@ class index extends Component {
             document.getElementById("success").style.display = "block";
             if (res.data.data.pin == null) {
               this.props.router.push("/createpin");
+            } else {
+              return this.props.router.push("/home");
             }
-            return this.props.router.push("/home");
           })
           .catch((err) => {
             console.log(err);
