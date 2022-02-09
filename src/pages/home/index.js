@@ -153,7 +153,15 @@ class index extends Component {
         <Modal show={!this.state.isHide} centered className={`  ${css.modalContainer}`}>
           <Modal.Header>
             <h5>Top Up</h5>
-            <button type="button" className={`btn-close ${css.btnClose}`} data-bs-dismiss="modal" aria-label="Close" onClick={this.modalTrigger}></button>
+            <button
+              type="button"
+              className={`btn-close ${css.btnClose}`}
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={() => {
+                this.setState({ isHide: !this.state.isHide });
+              }}
+            ></button>
             <br />
           </Modal.Header>
           <Modal.Body>
