@@ -6,9 +6,8 @@ import { withRouter } from "next/router";
 import { TopUp } from "../../modules/transaction/index";
 import { connect } from "react-redux";
 import { Logout, getUserById } from "../../modules/auth/index";
-
 import { bindActionCreators } from "redux";
-import { loginAction, saveAction, logout } from "../../Redux/actions/auth";
+import { saveAction, logout } from "../../redux/actions/auth";
 
 class Navigasi extends Component {
   constructor(props) {
@@ -182,7 +181,6 @@ class Navigasi extends Component {
 const mapDispatchToPropps = (dispacth) => {
   return {
     setUsers: bindActionCreators(saveAction, dispacth),
-    setAuth: bindActionCreators(loginAction, dispacth),
     logout: bindActionCreators(logout, dispacth),
   };
 };

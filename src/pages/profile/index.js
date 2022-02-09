@@ -4,7 +4,8 @@ import Footer from "../../commons/components/Footer";
 import Layout from "../../commons/components/Layout";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { loginAction, saveAction } from "../../Redux/actions/auth";
+// import { loginAction, saveAction } from "../../Redux/actions/auth";
+import { loginAction, saveAction } from "../../redux/actions/auth";
 import { withRouter } from "next/router";
 
 import css from "../../commons/styles/profile.module.css";

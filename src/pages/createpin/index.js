@@ -6,7 +6,7 @@ import PinInput from "react-pin-input";
 import { CreatePin } from "../../modules/Update/Users";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { loginAction, saveAction } from "../../Redux/actions/auth";
+import { loginAction, saveAction } from "../../redux/actions/auth";
 import { withRouter } from "next/router";
 
 import Image2 from "../../commons/images/png-phone2.png";

@@ -6,7 +6,8 @@ import Layout from "../../commons/components/Layout";
 import { Login, GetUser } from "../../modules/auth";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { loginAction, saveAction } from "../../Redux/actions/auth";
+// import { loginAction, saveAction } from "../../Redux/actions/auth";
+import { loginAction, saveAction } from "../../redux/actions/auth";
 
 import Image2 from "../../commons/images/png-phone2.png";
 import Image1 from "../../commons/images/png-phone.png";

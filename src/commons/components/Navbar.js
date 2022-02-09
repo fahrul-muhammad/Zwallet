@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 import Default from "../images/dummy-profile.png";
 import bell from "../images/bell.png";
