@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux";
 import Logger from "redux-logger";
 import rpm from "redux-promise-middleware";
-import reducers from "./reducers";
+import reducers from "./reducers/index";
 
 const saveState = (state) => {
   try {

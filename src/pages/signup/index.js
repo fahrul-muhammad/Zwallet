@@ -3,13 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../commons/components/Layout";
 import { Register } from "../../modules/auth";
+import { withRouter } from "next/router";
 
 import Image2 from "../../commons/images/png-phone2.png";
 import Image1 from "../../commons/images/png-phone.png";
 
 import { Component } from "react";
 
-export default class index extends Component {
+class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +33,7 @@ export default class index extends Component {
     Register(body)
       .then((res) => {
         console.log(res);
-        window.location.href = "/createpin";
+        this.props.router.push("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -110,3 +111,5 @@ export default class index extends Component {
     );
   }
 }
+
+export default withRouter(index);

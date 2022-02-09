@@ -5,7 +5,7 @@ import Link from "next/link";
 import { withRouter } from "next/router";
 import { TopUp } from "../../modules/transaction/index";
 import { connect } from "react-redux";
-import { Logout } from "../../modules/auth/index";
+import { Logout, getUserById } from "../../modules/auth/index";
 
 import { bindActionCreators } from "redux";
 import { loginAction, saveAction, logout } from "../../Redux/actions/auth";
@@ -39,6 +39,15 @@ class Navigasi extends Component {
         this.setState({ redirectUrl: res.data.data.redirectUrl });
         this.setState({ isSuccess: false });
         this.setState({ isError: true });
+        const id = this.props.users.id;
+        getUserById(id, token)
+          .then((result) => {
+            const data = result.data.data;
+            this.props.setUsers(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);

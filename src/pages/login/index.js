@@ -1,6 +1,7 @@
 import styles from "../../commons/styles/login.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { withRouter } from "next/router";
 import Layout from "../../commons/components/Layout";
 import { Login, GetUser } from "../../modules/auth";
 import { connect } from "react-redux";
@@ -32,7 +33,7 @@ class index extends Component {
     const body = this.state;
     Login(body)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         const id = res.data.data.id;
         const token = res.data.data.token;
         this.props.setAuth(token);
@@ -41,7 +42,10 @@ class index extends Component {
             const data = result.data.data;
             this.props.setUsers(data);
             document.getElementById("success").style.display = "block";
-            window.location.href = "/home";
+            if (res.data.data.pin == null) {
+              this.props.router.push("/createpin");
+            }
+            return this.props.router.push("/home");
           })
           .catch((err) => {
             console.log(err);
@@ -100,7 +104,7 @@ class index extends Component {
               </div>
             </form>
             <p className={styles.errorMsg} id="error">
-              Email Or Password Invalid
+              Email Or Password Invalid, Or Maybe Your account not verify
             </p>
             <p className={styles.successMsg} id="success">
               Login Success
@@ -135,4 +139,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToPropps)(index);
+export default withRouter(connect(mapStateToProps, mapDispatchToPropps)(index));

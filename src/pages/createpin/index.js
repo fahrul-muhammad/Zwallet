@@ -7,6 +7,7 @@ import { CreatePin } from "../../modules/Update/Users";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { loginAction, saveAction } from "../../Redux/actions/auth";
+import { withRouter } from "next/router";
 
 import Image2 from "../../commons/images/png-phone2.png";
 import Image1 from "../../commons/images/png-phone.png";
@@ -31,7 +32,7 @@ class index extends Component {
       .then((res) => {
         console.log(res.data);
         this.setState({ isDone: true });
-        window.location.href = "/login";
+        this.props.router.push("/home");
       })
       .catch((err) => {
         console.log(err);
@@ -112,4 +113,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToPropps)(index);
+export default withRouter(connect(mapStateToProps, mapDispatchToPropps)(index));
