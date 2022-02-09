@@ -24,7 +24,7 @@ class TransferId extends Component {
       notes: "",
       isShow: false,
       isInput: false,
-      isSuccess: true,
+      isSuccess: false,
       user: [],
     };
   }
