@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
+// import half from "../commons/images/half-phone.png";
 import half from "../commons/images/half-phone.png";
 import sponsor from "../commons/images/sponsor.png";
 import tilipun from "../commons/images/tilipun.png";
