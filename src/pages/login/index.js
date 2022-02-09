@@ -100,7 +100,7 @@ class index extends Component {
                 <input type="password" className={`form-control shadow-none ${styles["forms"]}`} id="password" placeholder="Enter your password" name="password" onChange={this.formChange} />
                 <i className="bi bi-lock"></i>
                 <div className={styles.link}>
-                  <Link href="/login">Forgot your password?</Link>
+                  <Link href="/reset_password">Forgot your password?</Link>
                 </div>
               </div>
             </form>
