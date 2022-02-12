@@ -168,7 +168,11 @@
 
 .grafik {
   grid-area: chart;
-  background-color: #dfdcdc;
+}
+
+.grafik canvas {
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .history {

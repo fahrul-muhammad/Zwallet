@@ -16,6 +16,10 @@ import css from "../../commons/styles/Home.module.css";
 import { Component } from "react";
 import { withRouter } from "next/router";
 
+// CHART
+import { Chart as ChartJs, BarElement, LinearScale, CategoryScale } from "chart.js";
+import { Bar } from "react-chartjs-2";
+
 class index extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +27,8 @@ class index extends Component {
       totalIncome: 0,
       totalExpense: 0,
       history: [],
+      listExpense: [],
+      listIncome: [],
       isHide: true,
       isSuccess: true,
       isError: true,
@@ -35,7 +41,6 @@ class index extends Component {
     const data = { ...this.state };
     data[e.target.name] = e.target.value;
     this.setState(data);
-    console.log(this.state);
   };
 
   userTopUp = () => {
@@ -43,7 +48,6 @@ class index extends Component {
     const token = this.props.token;
     TopUp(body, token)
       .then((res) => {
-        console.log(res.data.data.redirectUrl);
         this.setState({ redirectUrl: res.data.data.redirectUrl });
         this.setState({ isSuccess: false });
         this.setState({ isError: true });
@@ -60,8 +64,11 @@ class index extends Component {
     const token = this.props.token;
     GetChart(id, token)
       .then((res) => {
-        console.log(res.data.data);
-        const { totalIncome, totalExpense } = res.data.data;
+        console.log("CHART", res.data.data);
+        const { totalIncome, totalExpense, listExpense, listIncome } = res.data.data;
+
+        this.setState({ listExpense: listExpense });
+        this.setState({ listIncome: listIncome });
         this.setState({ totalIncome: totalIncome });
         this.setState({ totalExpense: totalExpense });
       })
@@ -74,7 +81,6 @@ class index extends Component {
     const token = this.props.token;
     GetHistory(token)
       .then((res) => {
-        console.log(res.data.data);
         this.setState({ history: res.data.data });
       })
       .catch((err) => {
@@ -85,15 +91,60 @@ class index extends Component {
   componentDidMount() {
     this.getChartData();
     this.GetHistoryUser();
+    ChartJs.register(LinearScale, CategoryScale, BarElement);
   }
 
   render() {
     const { router } = this.props;
+    const { listIncome } = this.state;
+    console.log("LIST INCOME", listIncome[1]);
     const formater = new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
       minimumFractionDigits: 2,
     });
+    console.log("LIST INCOME STATE", this.state.listIncome);
+    const Income = {
+      labels: this.state.listIncome.map((x) => x.day),
+      datasets: [
+        {
+          label: "Income",
+          borderRadius: "15",
+          data: this.state.listIncome.map((x) => x.total),
+          backgroundColor: ["#6379F4", "#6379F4", "#6379F4", "#6379F4", "#6379F4", "#6379F4"],
+        },
+        {
+          label: "Expense",
+          borderRadius: "15",
+          data: this.state.listExpense.map((x) => x.total),
+          backgroundColor: ["#9DA6B5", "#9DA6B5", "#9DA6B5", "#9DA6B5", "#9DA6B5", "#9DA6B5"],
+        },
+      ],
+    };
+
+    const options = {
+      maintainAspecRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            display: false,
+          },
+        },
+        x: {
+          grid: {
+            display: false,
+          },
+        },
+      },
+      responsive: true,
+      legend: {
+        label: {
+          fontSize: 14,
+          fontFamily: "Nunito Sans",
+        },
+      },
+    };
     return (
       <Layout title="Home">
         <div className={css["wrapper"]}>
@@ -134,7 +185,9 @@ class index extends Component {
                 <p>Expense</p>
                 <h1>{formater.format(this.state.totalExpense)}</h1>
               </div>
-              <div className={css.grafik}></div>
+              <div className={css.grafik}>
+                <Bar options={options} data={Income} height={210} />
+              </div>
             </div>
             <div className={css.history}>
               <p>Transaction History</p>
