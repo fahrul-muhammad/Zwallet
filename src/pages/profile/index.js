@@ -43,6 +43,7 @@ class index extends Component {
 
   render() {
     const profilepic = `${process.env.NEXT_PUBLIC_HOST}/uploads/${this.props.users.image}`;
+    console.log(profilepic);
     const { router } = this.props;
     return (
       <Layout title="Profile">
@@ -52,7 +53,7 @@ class index extends Component {
           <div className={css.content}>
             <div className={css.profilepic}>
               <input type="file" hidden />
-              <Image src={ProfilePic} alt="profile picture" />
+              <Image onError={ProfilePic} height={80} width={80} src={this.props.users.image !== null ? process.env.NEXT_PUBLIC_IMAGE + this.props.users.image : ProfilePic} alt="profile picture" />
             </div>
             <div className={css.button}>
               <button className={`btn btn-light `}>
@@ -62,18 +63,28 @@ class index extends Component {
             </div>
             <p className={css.name}>{`${this.props.users.firstName} ${this.props.users.lastName}`}</p>
             <p className={css.phone}>{this.props.users.noTelp !== null ? this.props.users.noTelp : "---"}</p>
-            <div className={css.cardDetail}>
+            <div
+              className={css.cardDetail}
+              onClick={() => {
+                this.props.router.push("/profile/detail");
+              }}
+            >
               <p>Personal Information</p>
               <i className="bi bi-arrow-right-short" />
             </div>
-            <div className={css.cardDetail}>
+            <div
+              className={css.cardDetail}
+              onClick={() => {
+                router.push("/profile/change-password");
+              }}
+            >
               <p>Change Password</p>
               <i className="bi bi-arrow-right-short" />
             </div>
             <div
               className={css.cardDetail}
               onClick={() => {
-                router.push("/createpin");
+                router.push("/profile/change-pin");
               }}
             >
               <p>Change Pin</p>

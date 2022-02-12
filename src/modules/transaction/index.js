@@ -11,7 +11,7 @@ export const GetChart = (id, token) => {
 };
 
 export const GetHistory = (token) => {
-  const URL = `${process.env.NEXT_PUBLIC_HOST}/transaction/history?page=1&limit=4&filter=WEEK`;
+  const URL = `${process.env.NEXT_PUBLIC_HOST}/transaction/history?page=1&limit=5&filter=WEEK`;
   return axios.get(URL, { headers: { Authorization: "Bearer " + token } });
 };
 
@@ -23,4 +23,14 @@ export const getAllHistory = (filter, page, token) => {
 export const Transfer = (body, token) => {
   const URL = `${process.env.NEXT_PUBLIC_HOST}/transaction/transfer`;
   return axios.post(URL, body, { headers: { Authorization: "Bearer " + token } });
+};
+
+export const GetHistoryById = (id, token) => {
+  const URL = `${process.env.NEXT_PUBLIC_HOST}/transaction/history/${id}`;
+  return axios.get(URL, { headers: { Authorization: "Bearer " + token } });
+};
+
+export const exportTransaction = (id, token) => {
+  const URL = `${process.env.NEXT_PUBLIC_HOST}/export/transaction/${id}`;
+  return axios.get(URL, { headers: { Authorization: "Bearer " + token } });
 };

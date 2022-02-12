@@ -20,8 +20,8 @@ class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      listExpense: [],
-      listIncome: [],
+      totalIncome: 0,
+      totalExpense: 0,
       history: [],
       isHide: true,
       isSuccess: true,
@@ -60,9 +60,10 @@ class index extends Component {
     const token = this.props.token;
     GetChart(id, token)
       .then((res) => {
-        const { listExpense, listIncome } = res.data.data;
-        this.setState({ listExpense });
-        this.setState({ listIncome });
+        console.log(res.data.data);
+        const { totalIncome, totalExpense } = res.data.data;
+        this.setState({ totalIncome: totalIncome });
+        this.setState({ totalExpense: totalExpense });
       })
       .catch((err) => {
         console.log(err);
@@ -88,6 +89,11 @@ class index extends Component {
 
   render() {
     const { router } = this.props;
+    const formater = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 2,
+    });
     return (
       <Layout title="Home">
         <div className={css["wrapper"]}>
@@ -96,7 +102,7 @@ class index extends Component {
           <div className={css.content}>
             <div className={css.balance}>
               <p>Balance</p>
-              <h1>Rp.{this.props.users.balance}</h1>
+              <h1>{formater.format(this.props.users.balance)}</h1>
               <p>{this.props.users.noTelp ? this.props.users.noTelp : "_____"}</p>
               <button
                 className={`btn btn-light  ${css["top-up"]}`}
@@ -117,12 +123,24 @@ class index extends Component {
                 Transfer
               </button>
             </div>
-            <div className={css.chart}></div>
+            <div className={css.chart}>
+              <div className={css.income}>
+                <i className="bi bi-arrow-up"></i>
+                <p>Income</p>
+                <h1>{formater.format(this.state.totalIncome)}</h1>
+              </div>
+              <div className={css.expense}>
+                <i className="bi bi-arrow-down"></i>
+                <p>Expense</p>
+                <h1>{formater.format(this.state.totalExpense)}</h1>
+              </div>
+              <div className={css.grafik}></div>
+            </div>
             <div className={css.history}>
               <p>Transaction History</p>
               {this.state.history.length > 0 ? (
                 <p className={css.HistoryLink}>
-                  <Link href="/history"> See All </Link>
+                  <Link href="/history?page=1&filter=WEEK"> See All </Link>
                 </p>
               ) : null}
               <div className={css["history-container"]}>
@@ -135,7 +153,7 @@ class index extends Component {
                         </div>
                         <p className={css.CardName}>{val.fullName}</p>
                         <p className={css.CardStatus}>{val.type}</p>
-                        <p className={val.type == "topup" ? css.money : css.other}>{val.type == "topup" || val.type == "accept" ? `+ Rp ${val.amount}` : `- Rp ${val.amount}`}</p>
+                        <p className={val.type == "topup" || val.type == "accept" ? css.money : css.other}>{val.type == "topup" || val.type == "accept" ? `+ ${formater.format(val.amount)}` : `- ${formater.format(val.amount)}`}</p>
                       </div>
                     );
                   })

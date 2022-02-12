@@ -1,24 +1,23 @@
-import styles from "../../commons/styles/signup.module.css";
+import styles from "../../commons/styles/newPass.module.css";
 import Image from "next/image";
-import Link from "next/link";
 import Layout from "../../commons/components/Layout";
-import { Register } from "../../modules/auth";
 import { withRouter } from "next/router";
+
+// UTILS
+import { resetPassowrd } from "../../modules/auth/index";
 
 import Image2 from "../../commons/images/png-phone2.png";
 import Image1 from "../../commons/images/png-phone.png";
 
-import { Component } from "react";
+import React, { Component } from "react";
 
 class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      isSuccess: false,
+      keysChangePassword: this.props.router.query.id,
+      newPassword: "",
+      confirmPassword: "",
       isInput: false,
     };
   }
@@ -27,19 +26,23 @@ class index extends Component {
     const data = { ...this.state };
     data[e.target.name] = e.target.value;
     this.setState(data);
-    console.log(this.state);
-    if (data.firstName == "" || data.lastName == "" || data.email == "" || data.password == "") {
+    if (data.newPassword == "" || data.confirmPassword == "") {
       this.setState({ isInput: false });
     } else {
       this.setState({ isInput: true });
     }
   };
 
-  signUp = () => {
-    const body = this.state;
-    Register(body)
+  resetPass = () => {
+    const { router } = this.props;
+    const body = {
+      keysChangePassword: this.state.keysChangePassword,
+      newPassword: this.state.newPassword,
+      confirmPassword: this.state.confirmPassword,
+    };
+    resetPassowrd(body)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setTimeout(() => {
           this.setState({ isSuccess: !this.state.isSuccess });
           console.log(this.state.isSuccess);
@@ -47,22 +50,19 @@ class index extends Component {
         setTimeout(() => {
           this.setState({ isSuccess: !this.state.isSuccess });
           console.log(this.state.isSuccess);
-          this.props.router.push("/login");
+          router.push("/login");
         }, 3500);
       })
       .catch((err) => {
         console.log(err);
-        let input = document.getElementsByTagName("input");
-        for (let i = 0; i < input.length; i++) {
-          document.getElementsByTagName("input")[i].style.borderBottomColor = "#FF5B37";
-        }
-        document.getElementById("error").style.display = "block";
       });
   };
 
   render() {
+    console.log("KEYS", this.props.router.query.id);
+
     return (
-      <Layout title="Sign Up">
+      <Layout title="New Password">
         <div className={styles.main}>
           <div className={styles.left}>
             <p className={styles.title}>Zwallet</p>
@@ -89,36 +89,25 @@ class index extends Component {
             </div>
           </div>
           <div className={styles.right}>
-            <p className={styles.errorMsg} id="error">
-              Sign Up Error, Try again
-            </p>
-            <h2 className={styles.desc}>Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users</h2>
-            <p className={styles.text}>Transfering money is eassier than ever, you can access Zwallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
+            <h2 className={styles.desc}>Did You Forgot Your Password? Don’t Worry, You Can Reset Your Password In a Minutes.</h2>
+            <p className={styles.text}>Now you can create a new password for your Zwallet account. Type your password twice so we can confirm your new passsword.</p>
             <form>
-              <div className={`${styles["mb-3"]}`}>
-                <input type="text" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your firstname`} name="firstName" onChange={this.formChange} />
-              </div>
-              <div className={`${styles["mb-3"]}`}>
-                <input type="text" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your lastname`} name="lastName" onChange={this.formChange} />
-              </div>
-              <div className={`${styles["mb-3"]}`}>
-                <input type="email" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your email`} name="email" onChange={this.formChange} />
+              <div className={styles["mb-3"]}>
+                <input type="password" className={`form-control shadow-none ${styles["forms"]}`} placeholder="Create new Password" name="newPassword" onChange={this.formChange}></input>
+                <i className="bi bi-lock"></i>
               </div>
               <div className={styles["mb-3"]}>
-                <input type="password" className={`form-control shadow-none ${styles["forms"]}`} id="exampleInputPassword1" placeholder="Enter your password" name="password" onChange={this.formChange} />
-                <div className={styles.link}>
-                  <Link href="/login">Forgot your password?</Link>
-                </div>
+                <input type="password" className={`form-control shadow-none ${styles["forms"]}`} placeholder="Confirm Your Password" onChange={this.formChange} name="confirmPassword" />
+                <i className="bi bi-lock"></i>
               </div>
             </form>
-            <button className={`btn btn-secondary ${styles.button}`} onClick={this.signUp} disabled={!this.state.isInput}>
-              Sign Up
+            <button className={`btn btn-secondary ${styles.button}`} disabled={!this.state.isInput} onClick={this.resetPass}>
+              Reset Password
             </button>
           </div>
-          {/* TOAST */}
-          <div className={styles.toast} hidden={!this.state.isSuccess}>
-            <p className={styles.toastText}>Sign Up Done</p>
-          </div>
+        </div>
+        <div className={styles.toast} hidden={!this.state.isSuccess}>
+          <p className={styles.toastText}>Change passowrd done</p>
         </div>
       </Layout>
     );

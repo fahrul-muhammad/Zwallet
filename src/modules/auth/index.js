@@ -22,7 +22,7 @@ export const Logout = (token) => {
 };
 
 export const getContact = (token, page) => {
-  const URL = `${process.env.NEXT_PUBLIC_HOST}/user?page=${page}&limit=3&sort=firstName DESC`;
+  const URL = `${process.env.NEXT_PUBLIC_HOST}/user?page=${page}&limit=3&sort=firstName ASC`;
   return axios.get(URL, { headers: { Authorization: "Bearer " + token } });
 };
 
@@ -34,4 +34,19 @@ export const SearchUser = (page, key, token) => {
 export const getUserById = (id, token) => {
   const URL = `${process.env.NEXT_PUBLIC_HOST}/user/profile/${id}`;
   return axios.get(URL, { headers: { Authorization: "Bearer " + token } });
+};
+
+export const verifyPin = (pin, token) => {
+  const URL = ` ${process.env.NEXT_PUBLIC_HOST}/user/pin?pin=${pin}`;
+  return axios.get(URL, { headers: { Authorization: "Bearer " + token } });
+};
+
+export const forgotPassword = (body) => {
+  const URL = `${process.env.NEXT_PUBLIC_HOST}/auth/forgot-password`;
+  return axios.post(URL, body);
+};
+
+export const resetPassowrd = (body) => {
+  const URL = `${process.env.NEXT_PUBLIC_HOST}/auth/reset-password`;
+  return axios.patch(URL, body);
 };

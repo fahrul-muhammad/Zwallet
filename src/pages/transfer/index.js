@@ -12,7 +12,6 @@ import Default from "../../commons/images/dummy-profile.png";
 import { getContact, SearchUser } from "../../modules/auth";
 
 import { Component } from "react";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 
 class index extends Component {
   constructor(props) {
@@ -32,14 +31,18 @@ class index extends Component {
     this.setState(data, () => {
       console.log(this.state);
     });
+    const { router } = this.props;
+    const { search } = this.state;
   };
 
   Searching = () => {
     const token = this.props.token;
     const key = this.state.search;
     const page = this.state.page;
+    const { router } = this.props;
     SearchUser(page, key, token)
       .then((res) => {
+        console.log("DATA RESULT", res.data);
         console.log("SEARCHING USERS", res.data.data);
         this.setState({ searchResult: res.data.data });
         this.setState({ isSearch: !this.state.isSearch });
@@ -102,6 +105,7 @@ class index extends Component {
 
   render() {
     console.log(this.state.searchResult);
+
     return (
       <Layout title="Transfer">
         <div className={css.wrapper}>
@@ -110,8 +114,16 @@ class index extends Component {
           <div className={css.content}>
             <p className={css.title}>Search Receiver</p>
             <div className={css[`mb-3`]}>
-              <input className="form-control shadow-none" type="text" placeholder="Search receiver here" aria-label="default input example" name="search" onKeyDown={this._handleKeyDown} onChange={this.formChange} />
-              <i className="bi bi-search"></i>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const { router } = this.props;
+                  router.push(`/transfer?search=${e.target.search.value}`);
+                }}
+              >
+                <input className="form-control shadow-none" type="text" placeholder="Search receiver here" aria-label="default input example" name="search" onKeyDown={this._handleKeyDown} onChange={this.formChange} />
+                <i className="bi bi-search"></i>
+              </form>
             </div>
             {this.state.isSearch == true && this.state.searchResult.length > 0
               ? this.state.searchResult.map((val) => {

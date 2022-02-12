@@ -57,7 +57,7 @@
   color: black;
 }
 
-.button {
+.button:disabled {
   background-color: #dadada;
   border: none;
   border-radius: 12px;
@@ -69,6 +69,19 @@
   color: #88888f;
   font-family: "Nunito Sans";
   transition: 0.5s;
+}
+
+.button {
+  background-color: #6379f4;
+  border: none;
+  border-radius: 12px;
+  width: 433px;
+  height: 57px;
+  position: absolute;
+  top: 83%;
+  left: 15%;
+  color: white;
+  font-family: "Nunito Sans";
 }
 
 .button:hover {
@@ -191,4 +204,73 @@
   text-align: center;
   color: #ff5b37;
   transition: 0.5s;
+}
+
+/* TOAST */
+
+.toast {
+  position: fixed;
+  top: 5%;
+  right: 2%;
+  border-radius: 15px;
+  width: 250px;
+  height: 50px;
+  background-color: #6379f4;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  z-index: 999;
+}
+
+.toast p {
+  padding-top: 5%;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    right: 0;
+    opacity: 0;
+  }
+  to {
+    right: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    right: 0;
+    opacity: 0;
+  }
+  to {
+    right: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    right: 30px;
+    opacity: 1;
+  }
+  to {
+    right: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    right: 30px;
+    opacity: 1;
+  }
+  to {
+    right: 0;
+    opacity: 0;
+  }
 }

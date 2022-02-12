@@ -6,7 +6,6 @@ import Layout from "../../commons/components/Layout";
 import { Login, GetUser } from "../../modules/auth";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-// import { loginAction, saveAction } from "../../Redux/actions/auth";
 import { loginAction, saveAction } from "../../redux/actions/auth";
 
 import Image2 from "../../commons/images/png-phone2.png";
@@ -20,6 +19,8 @@ class index extends Component {
     this.state = {
       email: "",
       password: "",
+      isSuccess: false,
+      isInput: false,
     };
   }
 
@@ -28,6 +29,11 @@ class index extends Component {
     data[e.target.name] = e.target.value;
     this.setState(data);
     console.log(this.state);
+    if (data.email == "" || data.password == "") {
+      this.setState({ isInput: false });
+    } else {
+      this.setState({ isInput: true });
+    }
   };
 
   login = () => {
@@ -43,11 +49,19 @@ class index extends Component {
             const data = result.data.data;
             this.props.setUsers(data);
             document.getElementById("success").style.display = "block";
-            if (res.data.data.pin == null) {
-              this.props.router.push("/createpin");
-            } else {
-              return this.props.router.push("/home");
-            }
+            setTimeout(() => {
+              this.setState({ isSuccess: !this.state.isSuccess });
+              console.log(this.state.isSuccess);
+            }, 500);
+            setTimeout(() => {
+              this.setState({ isSuccess: !this.state.isSuccess });
+              console.log(this.state.isSuccess);
+              if (res.data.data.pin == null) {
+                this.props.router.push("/createpin");
+              } else {
+                return this.props.router.push("/home");
+              }
+            }, 3500);
           })
           .catch((err) => {
             console.log(err);
@@ -101,7 +115,7 @@ class index extends Component {
                 <input type="password" className={`form-control shadow-none ${styles["forms"]}`} id="password" placeholder="Enter your password" name="password" onChange={this.formChange} />
                 <i className="bi bi-lock"></i>
                 <div className={styles.link}>
-                  <Link href="/reset_password">Forgot your password?</Link>
+                  <Link href="/forgot_password">Forgot your password?</Link>
                 </div>
               </div>
             </form>
@@ -111,7 +125,7 @@ class index extends Component {
             <p className={styles.successMsg} id="success">
               Login Success
             </p>
-            <button className={`btn btn-secondary ${styles.button}`} onClick={this.login}>
+            <button className={`btn btn-secondary ${styles.button}`} onClick={this.login} disabled={!this.state.isInput}>
               Login
             </button>
             <div className={styles.signup}>
@@ -120,6 +134,9 @@ class index extends Component {
               </p>
               <Link href="/signup"> sign Up</Link>
             </div>
+          </div>
+          <div className={styles.toast} hidden={!this.state.isSuccess}>
+            <p className={styles.toastText}>Login Success</p>
           </div>
         </div>
       </Layout>

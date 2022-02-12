@@ -1,45 +1,44 @@
-import styles from "../../commons/styles/signup.module.css";
+import styles from "../../commons/styles/forgotPass.module.css";
 import Image from "next/image";
-import Link from "next/link";
-import Layout from "../../commons/components/Layout";
-import { Register } from "../../modules/auth";
 import { withRouter } from "next/router";
+import Layout from "../../commons/components/Layout";
 
 import Image2 from "../../commons/images/png-phone2.png";
 import Image1 from "../../commons/images/png-phone.png";
 
-import { Component } from "react";
+// UTILS
+import { forgotPassword } from "../../modules/auth/index";
+
+import React, { Component } from "react";
 
 class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
       email: "",
-      password: "",
-      isSuccess: false,
       isInput: false,
+      isSuccess: false,
     };
   }
-
   formChange = (e) => {
     const data = { ...this.state };
     data[e.target.name] = e.target.value;
     this.setState(data);
-    console.log(this.state);
-    if (data.firstName == "" || data.lastName == "" || data.email == "" || data.password == "") {
+    if (data.email == "") {
       this.setState({ isInput: false });
     } else {
       this.setState({ isInput: true });
     }
   };
 
-  signUp = () => {
-    const body = this.state;
-    Register(body)
+  forgotPasswords = () => {
+    const body = {
+      email: this.state.email,
+      linkDirect: `http://localhost:3000/new_password`,
+    };
+    forgotPassword(body)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setTimeout(() => {
           this.setState({ isSuccess: !this.state.isSuccess });
           console.log(this.state.isSuccess);
@@ -47,22 +46,16 @@ class index extends Component {
         setTimeout(() => {
           this.setState({ isSuccess: !this.state.isSuccess });
           console.log(this.state.isSuccess);
-          this.props.router.push("/login");
         }, 3500);
       })
       .catch((err) => {
         console.log(err);
-        let input = document.getElementsByTagName("input");
-        for (let i = 0; i < input.length; i++) {
-          document.getElementsByTagName("input")[i].style.borderBottomColor = "#FF5B37";
-        }
-        document.getElementById("error").style.display = "block";
       });
   };
 
   render() {
     return (
-      <Layout title="Sign Up">
+      <Layout title="Forgot Password">
         <div className={styles.main}>
           <div className={styles.left}>
             <p className={styles.title}>Zwallet</p>
@@ -89,35 +82,19 @@ class index extends Component {
             </div>
           </div>
           <div className={styles.right}>
-            <p className={styles.errorMsg} id="error">
-              Sign Up Error, Try again
-            </p>
-            <h2 className={styles.desc}>Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users</h2>
-            <p className={styles.text}>Transfering money is eassier than ever, you can access Zwallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
+            <h2 className={styles.desc}>Did You Forgot Your Password? Don’t Worry, You Can Reset Your Password In a Minutes.</h2>
+            <p className={styles.text}>To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.</p>
             <form>
-              <div className={`${styles["mb-3"]}`}>
-                <input type="text" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your firstname`} name="firstName" onChange={this.formChange} />
-              </div>
-              <div className={`${styles["mb-3"]}`}>
-                <input type="text" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your lastname`} name="lastName" onChange={this.formChange} />
-              </div>
-              <div className={`${styles["mb-3"]}`}>
-                <input type="email" className={`form-control shadow-none  ${styles["forms"]}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={`Enter your email`} name="email" onChange={this.formChange} />
-              </div>
               <div className={styles["mb-3"]}>
-                <input type="password" className={`form-control shadow-none ${styles["forms"]}`} id="exampleInputPassword1" placeholder="Enter your password" name="password" onChange={this.formChange} />
-                <div className={styles.link}>
-                  <Link href="/login">Forgot your password?</Link>
-                </div>
+                <input type="email" className={`form-control shadow-none ${styles["forms"]}`} id="exampleInputPassword1" placeholder="Enter your email" name="email" onChange={this.formChange} />
               </div>
             </form>
-            <button className={`btn btn-secondary ${styles.button}`} onClick={this.signUp} disabled={!this.state.isInput}>
-              Sign Up
+            <button disabled={!this.state.isInput} className={`btn btn-secondary ${styles.button}`} onClick={this.forgotPasswords}>
+              Confirm
             </button>
           </div>
-          {/* TOAST */}
           <div className={styles.toast} hidden={!this.state.isSuccess}>
-            <p className={styles.toastText}>Sign Up Done</p>
+            <p className={styles.toastText}>Please check Your email</p>
           </div>
         </div>
       </Layout>

@@ -85,10 +85,90 @@
 
 .chart {
   grid-area: chart;
-  background-color: bisque;
   margin-right: 2%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30% 70%;
+  grid-template-areas:
+    "income expense"
+    "chart chart";
+}
+
+.income {
+  grid-area: income;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.income i {
+  font-size: 28px;
+  color: #1ec15f;
+}
+
+.income p {
+  font-family: Nunito Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #6a6a6a;
+}
+
+.income h1 {
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #3a3d42;
+}
+
+.expense {
+  grid-area: expense;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.expense i {
+  font-size: 28px;
+  color: #ff5b37;
+}
+
+.expense p {
+  font-family: Nunito Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #6a6a6a;
+}
+
+.expense h1 {
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #3a3d42;
+}
+
+.grafik {
+  grid-area: chart;
+  background-color: #dfdcdc;
 }
 
 .history {

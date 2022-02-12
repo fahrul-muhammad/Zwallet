@@ -45,6 +45,10 @@
   position: relative;
 }
 
+.card:hover {
+  cursor: pointer;
+}
+
 .card img {
   border-radius: 10px;
 }

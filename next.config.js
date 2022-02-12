@@ -1,6 +1,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: [process.env.NEXT_PUBLIC_HOST],
+    domains: ["zwalet.herokuapp.com", "localhost:3000"],
   },
 };

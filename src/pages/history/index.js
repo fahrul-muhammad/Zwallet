@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { withRouter } from "next/router";
 import { getAllHistory } from "../../modules/transaction/index";
 import Default from "../../commons/images/dummy-profile.png";
+import Link from "next/link";
 
 class index extends Component {
   constructor(props) {
@@ -26,17 +27,30 @@ class index extends Component {
     this.setState(data, () => {
       console.log(this.state);
     });
+    const { router } = this.props;
+    let { query } = this.props.router;
+    console.log("QUERY FORM CHANGE", query);
+    query = {
+      ...query,
+      page: data.page,
+      filter: data.filter,
+    };
+    router.push(`/history?page=${query.page}&filter=${query.filter}`);
+    this.getHistory();
   };
 
   getHistory = () => {
     const token = this.props.token;
-    const filter = this.state.filter;
-    const page = this.state.page;
-    console.log(filter);
+    const { router } = this.props;
+    const { page, filter } = router.query;
+    console.log("ROUTER QUERY", router.query);
+    router.query = {
+      page: this.state.page,
+      filter: this.state.filter,
+    };
     getAllHistory(filter, page, token)
       .then((res) => {
         console.log("RESPONSE", filter);
-        console.log(res.data);
         this.setState({ history: res.data.data });
       })
       .catch((err) => {
@@ -46,17 +60,23 @@ class index extends Component {
 
   NextPage = () => {
     const page = this.state.page;
-    this.setState({ page: page + 1 }, () => {
-      console.log(this.state.page);
-      this.getHistory();
-    });
+    const { router } = this.props;
+    let { query } = router;
+    this.setState({ page: page + 1 });
+    console.log("NEXT", page);
+    query.page = page;
+    router.push(`/history?page=${page}&filter=${query.filter}`);
+    this.getHistory();
   };
 
   PrevPage = () => {
     const page = this.state.page;
-    if (this.state.page > 1) {
+    const { router } = this.props;
+    let { query } = router;
+    if (page >= 1) {
       this.setState({ page: page - 1 }, () => {
-        console.log(this.state.page);
+        console.log("PREV", page);
+        router.push(`/history?page=${page}&filter=${query.filter}`);
         this.getHistory();
       });
     } else {
@@ -64,10 +84,36 @@ class index extends Component {
     }
   };
 
+  // NextPage = () => {
+  //   const data = { ...this.state };
+  //   const { router } = this.props;
+  //   let { query } = router;
+  //   query = {
+  //     ...query,
+  //     page: query.page + 1,
+  //   };
+  // };
+
+  // PrevPage = () => {
+  //   const data = { ...this.state };
+  //   const { router } = this.props;
+  //   let { query } = router;
+  //   query = {
+  //     ...query,
+  //     page: query.page - 1,
+  //   };
+  // };
+
   componentDidMount() {
+    const { router } = this.props;
     this.getHistory();
   }
   render() {
+    const formater = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 2,
+    });
     return (
       <Layout title="history">
         <div className={css.wrapper}>
@@ -75,7 +121,7 @@ class index extends Component {
           <Navigasi />
           <div className={css.content}>
             <p className={css}>Transaction History</p>
-            <select className="form-select" aria-label="Default select example" name="filter" onChange={this.formChange}>
+            <select className="form-select" aria-label="Default select example" name="filter" onChange={this.formChange} defaultValue="WEEK">
               <option selected>-- Select Filter --</option>
               <option value="WEEK">Week</option>
               <option value="MONTH">Month</option>
@@ -84,13 +130,19 @@ class index extends Component {
             {this.state.history.length > 0 ? (
               this.state.history.map((val) => {
                 return (
-                  <div className={css.card} key={val.id}>
+                  <div
+                    className={css.card}
+                    key={val.id}
+                    onClick={() => {
+                      this.props.router.push(`/history/${val.id}`);
+                    }}
+                  >
                     <div className={css.image}>
                       <Image src={Default} alt="foto profile" width={60} height={60} />
                     </div>
                     <p className={css.name}>{val.fullName}</p>
                     <p className={css.type}>{val.type}</p>
-                    <p className={val.type == "topup" ? css.money : css.other}>{val.type == "topup" || val.type == "accept" ? `+ Rp ${val.amount}` : `- Rp ${val.amount}`}</p>
+                    <p className={val.type == "topup" || val.type == "accept" ? css.money : css.other}>{val.type == "topup" || val.type == "accept" ? `+ ${formater.format(val.amount)}` : `- ${formater.format(val.amount)}`}</p>
                   </div>
                 );
               })

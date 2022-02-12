@@ -1,0 +1,95 @@
+.wrapper {
+  background-color: #fafcff;
+  height: 961px;
+}
+
+.content {
+  background-color: #fafcff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  height: 100vh;
+  width: 70%;
+  right: 5%;
+  top: 25%;
+  position: absolute;
+  border-radius: 25px;
+}
+
+.content h1 {
+  padding-left: 5%;
+  padding-top: 3%;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #3a3d42;
+}
+
+.content .text {
+  padding-top: 5%;
+  padding-left: 5%;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #7a7886;
+}
+
+.cardContainer {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 90%;
+  border-radius: 10px;
+  height: 92px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: white;
+  position: relative;
+}
+
+.card p:first-child {
+  font-family: Nunito Sans;
+  font-size: 16px;
+  padding-left: 5%;
+  padding-top: 1%;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #7a7886;
+}
+
+.card p:nth-child(2) {
+  font-family: Nunito Sans;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #514f5b;
+  padding-left: 5%;
+}
+
+.card i {
+  position: absolute;
+  font-size: 25px;
+  right: 5%;
+  color: #bbbbbe;
+  top: 30%;
+}
+
+.card i:hover {
+  cursor: pointer;
+}

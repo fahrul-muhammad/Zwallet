@@ -1,0 +1,204 @@
+.wrapper {
+  background-color: #fafcff;
+  height: 961px;
+}
+
+.content {
+  background-color: #fafcff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  height: 100vh;
+  width: 70%;
+  right: 5%;
+  top: 25%;
+  position: absolute;
+  border-radius: 25px;
+}
+
+.Image {
+  position: absolute;
+  top: 1%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.Status {
+  position: absolute;
+  top: 11%;
+  width: 100%;
+  text-align: center;
+  font-family: Nunito Sans;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 0em;
+  color: #4d4b57;
+}
+
+.cardContainer {
+  position: absolute;
+  top: 15%;
+  width: 100%;
+}
+
+.Card {
+  width: 90%;
+  height: 82px;
+  margin: 1.5% auto 1.5% auto;
+  border-radius: 10px;
+  background-color: white;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.Card p {
+  padding-left: 5%;
+}
+
+.Card p:first-child {
+  position: absolute;
+  top: 10%;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #7a7886;
+}
+
+.Card p:last-child {
+  position: absolute;
+  bottom: 2%;
+  font-family: Nunito Sans;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #514f5b;
+}
+
+.btnHome {
+  position: absolute;
+  border-radius: 12px;
+  right: 5%;
+  bottom: 3%;
+  width: 197px;
+  height: 8%;
+  color: white;
+  border: none;
+  background-color: #6379f4;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+.btnHome:hover {
+  background-color: #6379f4;
+  color: white;
+}
+
+.btnExport {
+  position: absolute;
+  border-radius: 12px;
+  right: 27%;
+  bottom: 3%;
+  width: 197px;
+  height: 8%;
+  color: #6379f4;
+  border: none;
+  background-color: rgba(99, 121, 244, 0.15);
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+}
+
+.btnExport:hover {
+  border-radius: 12px;
+
+  width: 197px;
+  height: 8%;
+  color: #6379f4;
+  border: none;
+  background-color: rgba(99, 121, 244, 0.15);
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+}
+
+.Transfer {
+  padding-left: 5%;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #514f5b;
+}
+
+.userCard {
+  position: absolute;
+  left: 5%;
+  bottom: 4%;
+  width: 90%;
+  height: 92px;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.userImage {
+  position: absolute;
+  top: 11.5%;
+  left: 5%;
+  width: 70px;
+  height: 70px;
+}
+
+.userImage img {
+  border-radius: 10px;
+}
+
+.name {
+  position: absolute;
+  left: 15%;
+  top: 10%;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #4d4b57;
+}
+
+.phone {
+  position: absolute;
+  left: 15%;
+  bottom: 0%;
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #7a7886;
+}

@@ -10,8 +10,7 @@ import Image from "next/image";
 import { Transfer } from "../../modules/transaction";
 import { Modal } from "react-bootstrap";
 import PinInput from "react-pin-input";
-import { getUserById } from "../../modules/auth";
-import Success from "../../commons/images/success.png";
+import { getUserById, verifyPin } from "../../modules/auth";
 
 import css from "../../commons/styles/transferId.module.css";
 
@@ -25,7 +24,11 @@ class TransferId extends Component {
       isShow: false,
       isInput: false,
       isSuccess: false,
-      user: [],
+      user: {},
+      getUserDone: false,
+      IdTransaction: [],
+      pin: 0,
+      showErr: false,
     };
   }
 
@@ -43,7 +46,8 @@ class TransferId extends Component {
     Transfer(body, token)
       .then((res) => {
         console.log(res.data.data);
-        this.setState({ isSuccess: true });
+        const { id } = res.data.data;
+        this.checkPin(id);
       })
       .catch((err) => {
         console.log(err);
@@ -56,6 +60,7 @@ class TransferId extends Component {
     getUserById(id, token)
       .then((res) => {
         this.setState({ user: res.data.data });
+        this.setState({ getUserDone: true });
       })
       .catch((err) => {
         console.log(err);
@@ -74,9 +79,32 @@ class TransferId extends Component {
     this.getUser();
   }
 
+  checkPin = (transactionId) => {
+    const token = this.props.token;
+    const pin = this.state.pin;
+    verifyPin(pin, token)
+      .then((res) => {
+        console.log(res.data);
+        const { id } = res.data.data;
+        if (id == this.props.users.id) {
+          this.props.router.push(`/history/${transactionId}`);
+        }
+        return;
+      })
+      .catch((err) => {
+        console.log("ERROR", err);
+        this.setState({ showErr: true });
+      });
+  };
+
   render() {
-    console.log("USER DATA", this.state.user);
+    const { router } = this.props;
     const { user } = this.state;
+    const formater = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 2,
+    });
     return (
       <Layout title="Transfer">
         <div className={css.wrapper}>
@@ -86,13 +114,15 @@ class TransferId extends Component {
             {this.state.isSuccess == false ? (
               <>
                 <p>Transfer Money</p>
-                <div className={css.userCard}>
-                  <div className={css.cardImage}>
-                    <Image src={Default} alt="photo profile" />
+                {this.state.getUserDone == true ? (
+                  <div className={css.userCard}>
+                    <div className={css.cardImage}>
+                      <Image src={Default} alt="photo profile" />
+                    </div>
+                    <p className={css.cardName}>{user.firstName + " " + user.lastName}</p>
+                    <p className={css.cardPhone}>{user.noTelp !== null ? user.noTelp : "___"}</p>
                   </div>
-                  <p className={css.cardName}>{user.firstName + " " + user.lastName}</p>
-                  <p className={css.cardPhone}>{user.noTelp !== null ? user.noTelp : "___"}</p>
-                </div>
+                ) : null}
                 {this.state.isInput ? (
                   <>
                     <div className={css["inputdone-card"]}>
@@ -117,7 +147,19 @@ class TransferId extends Component {
                     <h6>
                       Type the amount you want to transfer and then <br /> press continue to the next steps.
                     </h6>
-                    <input className={`form-control ${css.inputAmount} shadow-none`} type="number" name="amount" placeholder="Input Money" aria-label="default input example" onChange={this.formChange}></input>
+                    <input
+                      className={`form-control ${css.inputAmount} shadow-none`}
+                      type="number"
+                      name="amount"
+                      placeholder="Input Money"
+                      onChange={(e) => {
+                        this.setState({ amount: e.target.value });
+                        console.log("AMOUNT", this.state.amount);
+                        console.log(e.target.value);
+                        formater.format(e.target.value);
+                      }}
+                    ></input>
+                    <p className={css.userSaldo}>{this.state.amount !== 0 ? formater.format(this.props.users.balance - this.state.amount) : formater.format(this.props.users.balance)}</p>
                     <input className={`form-control ${css.inputText} shadow-none`} type="text" name="notes" placeholder="Add some Notes" aria-label="default input example" onChange={this.formChange}></input>
                   </>
                 )}
@@ -137,14 +179,7 @@ class TransferId extends Component {
                   Go Back
                 </button>
               </>
-            ) : (
-              <>
-                <div className={css.successImage}>
-                  <Image src={Success} alt="image success" />
-                </div>
-                <h1 className={css.successNotif}>Your Transaction is Success</h1>
-              </>
-            )}
+            ) : null}
           </div>
           <Footer />
         </div>
@@ -161,14 +196,20 @@ class TransferId extends Component {
             <PinInput
               length={6}
               onChange={(e) => {
-                console.log("ONCHANGE", e);
+                console.log(e);
+                this.setState({ pin: e });
               }}
+              secret
               initialValue="number"
               type="numeric"
               inputMode="number"
               regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
               autoSelect={true}
             />
+            <p className={css.wrongPin} hidden={!this.state.showErr}>
+              {" "}
+              Wrong PIN
+            </p>
           </Modal.Body>
           <Modal.Footer>
             <button className={`btn btn-light ${css["modal-btn"]}`} onClick={this.userTransfer}>

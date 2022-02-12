@@ -64,7 +64,6 @@ class Navigasi extends Component {
     const { router } = this.props;
     Logout(token)
       .then((res) => {
-        console.log(res.data);
         this.props.logout();
         router.push("/");
       })
@@ -84,7 +83,7 @@ class Navigasi extends Component {
         <ul>
           <li>
             <Link href="/home">
-              <a className={router.pathname == "/home" || router.pathname == "/history" ? css.active : ""}>
+              <a className={router.pathname == "/home" || router.pathname == "/history?" ? css.active : ""}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className={`bi bi-columns-gap ${css["icon"]} `} viewBox="0 0 16 16">
                   <path d="M6 1v3H1V1h5zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12v3h-5v-3h5zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8v7H1V8h5zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6v7h-5V1h5zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z" />
                 </svg>
@@ -93,8 +92,13 @@ class Navigasi extends Component {
             </Link>
           </li>
           <li>
-            <Link href="/transfer">
-              <a className={router.pathname == "/transfer" || router.pathname == "/transfer/:id" ? css.active : ""}>
+            <Link
+              href={{
+                pathname: "/transfer" || "/trasnfer/[id]",
+                query: { id: router.query.id },
+              }}
+            >
+              <a className={router.pathname == "/transfer" || router.pathname == `/transfer/[id]` || router.pathname == `/history/[id]` || router.pathname == "/history" ? css.active : ""}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className={`bi bi-arrow-up-short ${css["icon"]} `} viewBox="0 0 16 16">
                   <path fill="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
                 </svg>
@@ -103,8 +107,8 @@ class Navigasi extends Component {
             </Link>
           </li>
           <li>
-            <Link href={`${router.pathname}`}>
-              <a onClick={this.modalTrigger} /* className={router.pathname == "/topup" ? css.active : ""} */>
+            <Link href={router.asPath}>
+              <a onClick={this.modalTrigger}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className={`bi bi-plus ${css["icon"]} `} viewBox="0 0 16 16">
                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                 </svg>
@@ -114,7 +118,13 @@ class Navigasi extends Component {
           </li>
           <li>
             <Link href="/profile">
-              <a className={router.pathname == "/profile" ? css.active : ""}>
+              <a
+                className={
+                  router.pathname == "/profile" || router.pathname == "/profile/detail" || router.pathname == "/profile/add-phone-number" || router.pathname == "/profile/edit-phone-number" || router.pathname == "/profile/change-pin"
+                    ? css.active
+                    : ""
+                }
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className={`bi bi-person ${css["icon"]} `} viewBox="0 0 16 16">
                   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                 </svg>
