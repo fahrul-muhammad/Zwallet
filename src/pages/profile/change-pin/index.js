@@ -19,6 +19,7 @@ class index extends Component {
     this.state = {
       pin: 0,
       isInput: false,
+      isSuccess: false,
     };
   }
 
@@ -42,6 +43,15 @@ class index extends Component {
     CreatePin(pin, id, token)
       .then((res) => {
         console.log(res.data);
+        setTimeout(() => {
+          this.setState({ isSuccess: !this.state.isSuccess });
+          console.log(this.state.isSuccess);
+        }, 500);
+        setTimeout(() => {
+          this.setState({ isSuccess: !this.state.isSuccess });
+          console.log(this.state.isSuccess);
+          this.props.router.push("/profile");
+        }, 3500);
       })
       .catch((err) => {
         console.log(err);
@@ -68,6 +78,9 @@ class index extends Component {
                 Continue
               </button>
             </div>
+          </div>
+          <div className={css.toast} hidden={!this.state.isSuccess}>
+            <p className={css.toastText}>Change Pin Success</p>
           </div>
           <Footer />
         </div>

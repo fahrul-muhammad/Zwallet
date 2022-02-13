@@ -34,7 +34,15 @@ class index extends Component {
       isError: true,
       amount: 0,
       redirectUrl: "",
+      isErr: false,
     };
+    this.onError = this.onError.bind(this);
+  }
+
+  onError() {
+    this.setState({
+      isErr: true,
+    });
   }
 
   formChange = (e) => {
@@ -66,7 +74,6 @@ class index extends Component {
       .then((res) => {
         console.log("CHART", res.data.data);
         const { totalIncome, totalExpense, listExpense, listIncome } = res.data.data;
-
         this.setState({ listExpense: listExpense });
         this.setState({ listIncome: listIncome });
         this.setState({ totalIncome: totalIncome });
@@ -105,17 +112,31 @@ class index extends Component {
     });
     console.log("LIST INCOME STATE", this.state.listIncome);
     const Income = {
-      labels: this.state.listIncome.map((x) => x.day),
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
           label: "Income",
+          borderWidth: {
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+          },
+          borderSkipped: false,
           borderRadius: "15",
           data: this.state.listIncome.map((x) => x.total),
           backgroundColor: ["#6379F4", "#6379F4", "#6379F4", "#6379F4", "#6379F4", "#6379F4"],
         },
         {
           label: "Expense",
+          borderWidth: {
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+          },
           borderRadius: "15",
+          borderSkipped: false,
           data: this.state.listExpense.map((x) => x.total),
           backgroundColor: ["#9DA6B5", "#9DA6B5", "#9DA6B5", "#9DA6B5", "#9DA6B5", "#9DA6B5"],
         },
@@ -145,6 +166,7 @@ class index extends Component {
         },
       },
     };
+    console.log("ERROR STATE", this.state.isErr);
     return (
       <Layout title="Home">
         <div className={css["wrapper"]}>
@@ -176,17 +198,17 @@ class index extends Component {
             </div>
             <div className={css.chart}>
               <div className={css.income}>
-                <i className="bi bi-arrow-up"></i>
+                <i className="bi bi-arrow-down"></i>
                 <p>Income</p>
                 <h1>{formater.format(this.state.totalIncome)}</h1>
               </div>
               <div className={css.expense}>
-                <i className="bi bi-arrow-down"></i>
+                <i className="bi bi-arrow-up"></i>
                 <p>Expense</p>
                 <h1>{formater.format(this.state.totalExpense)}</h1>
               </div>
               <div className={css.grafik}>
-                <Bar options={options} data={Income} height={210} />
+                <Bar options={options} data={Income} height={200} />
               </div>
             </div>
             <div className={css.history}>
@@ -199,10 +221,11 @@ class index extends Component {
               <div className={css["history-container"]}>
                 {this.state.history.length > 0 ? (
                   this.state.history.map((val) => {
+                    console.log(val.image);
                     return (
                       <div className={css["history-card"]} key={val.id}>
                         <div className={css.cardImg}>
-                          <Image src={Default} alt="foto orang" width={56} height={56} />
+                          <Image src={this.state.isErr ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} /* onError={this.onError} */ alt="foto orang" width={56} height={56} />
                         </div>
                         <p className={css.CardName}>{val.fullName}</p>
                         <p className={css.CardStatus}>{val.type}</p>

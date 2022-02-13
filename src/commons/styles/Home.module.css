@@ -168,6 +168,8 @@
 
 .grafik {
   grid-area: chart;
+  position: relative;
+  z-index: 999;
 }
 
 .grafik canvas {

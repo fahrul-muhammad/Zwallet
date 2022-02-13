@@ -10,7 +10,8 @@ import { withRouter } from "next/router";
 
 import css from "../../commons/styles/profile.module.css";
 import Image from "next/image";
-import ProfilePic from "../../commons/images/dummy-profile.png";
+// import Default from "../../commons/images/dummy-profile.png";
+import Default from "../../commons/images/dummy-profile.png";
 
 import React, { Component } from "react";
 
@@ -19,8 +20,16 @@ class index extends Component {
     super(props);
     this.state = {
       image: "",
+      isError: false,
     };
     this.inputFile = React.createRef();
+    this.onError = this.onError.bind(this);
+  }
+
+  onError() {
+    this.setState({
+      isError: true,
+    });
   }
 
   fileChange = (event) => {
@@ -42,8 +51,8 @@ class index extends Component {
   };
 
   render() {
-    const profilepic = `${process.env.NEXT_PUBLIC_HOST}/uploads/${this.props.users.image}`;
-    console.log(profilepic);
+    const myImage = `${process.env.NEXT_PUBLIC_IMAGE}${this.props.users.image}`;
+    console.log(myImage);
     const { router } = this.props;
     return (
       <Layout title="Profile">
@@ -53,7 +62,7 @@ class index extends Component {
           <div className={css.content}>
             <div className={css.profilepic}>
               <input type="file" hidden />
-              <Image onError={ProfilePic} height={80} width={80} src={this.props.users.image !== null ? process.env.NEXT_PUBLIC_IMAGE + this.props.users.image : ProfilePic} alt="profile picture" />
+              <Image src={this.state.isError ? Default : myImage} height={80} onError={this.onError} blurDataURL={Default} width={80} alt="profile picture" />
             </div>
             <div className={css.button}>
               <button className={`btn btn-light `}>

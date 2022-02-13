@@ -29,7 +29,15 @@ class TransferId extends Component {
       IdTransaction: [],
       pin: 0,
       showErr: false,
+      isError: false,
     };
+    this.onError = this.onError.bind(this);
+  }
+
+  onError() {
+    this.setState({
+      isError: true,
+    });
   }
 
   formChange = (e) => {
@@ -117,7 +125,7 @@ class TransferId extends Component {
                 {this.state.getUserDone == true ? (
                   <div className={css.userCard}>
                     <div className={css.cardImage}>
-                      <Image src={Default} alt="photo profile" />
+                      <Image onError={this.onError} src={this.state.isError ? Default : process.env.NEXT_PUBLIC_IMAGE + user.image} alt="photo profile" />
                     </div>
                     <p className={css.cardName}>{user.firstName + " " + user.lastName}</p>
                     <p className={css.cardPhone}>{user.noTelp !== null ? user.noTelp : "___"}</p>

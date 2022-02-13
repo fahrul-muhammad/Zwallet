@@ -21,6 +21,7 @@ class index extends Component {
     this.state = {
       noTelp: "",
       isInput: false,
+      isSuccess: false,
     };
   }
 
@@ -48,6 +49,15 @@ class index extends Component {
           .then((result) => {
             const data = result.data.data;
             this.props.setUsers(data);
+            setTimeout(() => {
+              this.setState({ isSuccess: !this.state.isSuccess });
+              console.log(this.state.isSuccess);
+            }, 500);
+            setTimeout(() => {
+              this.setState({ isSuccess: !this.state.isSuccess });
+              console.log(this.state.isSuccess);
+              this.props.router.push("/profile");
+            }, 3500);
           })
           .catch((error) => {
             console.log(error);
@@ -78,6 +88,9 @@ class index extends Component {
                 Add phone number
               </button>
             </div>
+          </div>
+          <div className={css.toast} hidden={!this.state.isSuccess}>
+            <p className={css.toastText}>Add Phone Number Success</p>
           </div>
           <Footer />
         </div>

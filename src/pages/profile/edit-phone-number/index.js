@@ -14,6 +14,13 @@ import Footer from "../../../commons/components/Footer";
 import Layout from "../../../commons/components/Layout";
 
 class index extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSuccess: false,
+    };
+  }
+
   deletPhoneNumber = () => {
     const token = this.props.token;
     const id = this.props.users.id;
@@ -28,6 +35,15 @@ class index extends Component {
             console.log(result.data);
             const data = result.data.data;
             this.props.setUsers(data);
+            setTimeout(() => {
+              this.setState({ isSuccess: !this.state.isSuccess });
+              console.log(this.state.isSuccess);
+            }, 500);
+            setTimeout(() => {
+              this.setState({ isSuccess: !this.state.isSuccess });
+              console.log(this.state.isSuccess);
+              this.props.router.push("/profile");
+            }, 3500);
           })
           .catch((error) => {
             console.log(error);
@@ -58,6 +74,9 @@ class index extends Component {
             </div>
           </div>
           <Footer />
+        </div>
+        <div className={css.toast} hidden={!this.state.isSuccess}>
+          <p className={css.toastText}>Delet Phone Number Success</p>
         </div>
       </Layout>
     );

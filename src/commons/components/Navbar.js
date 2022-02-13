@@ -9,14 +9,29 @@ import Default from "../images/dummy-profile.png";
 import bell from "../images/bell.png";
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isError: false,
+    };
+    this.onError = this.onError.bind(this);
+  }
+
+  onError() {
+    this.setState({
+      isError: true,
+    });
+  }
+
   render() {
+    const myImage = `${process.env.NEXT_PUBLIC_IMAGE}${this.props.users.image}`;
     return (
       <nav className={styles.nav}>
         <p className={styles["title"]}>Zwallet</p>
         <div className={styles["profile"]}>
           <Link href="/profile" passHref>
             <div className="photo">
-              <Image src={Default} width="52" height="52" alt="foto profile" />
+              <Image src={this.state.isError ? Default : myImage} width={52} height={52} alt="foto profile" />
             </div>
           </Link>
 
