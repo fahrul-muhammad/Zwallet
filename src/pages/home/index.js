@@ -8,9 +8,7 @@ import Link from "next/link";
 import { Modal } from "react-bootstrap";
 import Image from "next/image";
 import { GetChart, GetHistory } from "../../modules/transaction";
-import Card_image from "../../commons/components/Card_image";
 import Default from "../../commons/images/dummy-profile.png";
-
 import css from "../../commons/styles/Home.module.css";
 
 import { Component } from "react";
