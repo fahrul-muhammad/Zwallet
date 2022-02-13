@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Modal } from "react-bootstrap";
 import Image from "next/image";
 import { GetChart, GetHistory } from "../../modules/transaction";
-
+import Card_image from "../../commons/components/Card_image";
 import Default from "../../commons/images/dummy-profile.png";
 
 import css from "../../commons/styles/Home.module.css";
@@ -17,7 +17,7 @@ import { Component } from "react";
 import { withRouter } from "next/router";
 
 // CHART
-import { Chart as ChartJs, BarElement, LinearScale, CategoryScale } from "chart.js";
+import { Chart as ChartJs, BarElement, LinearScale, CategoryScale, Tooltip } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
 class index extends Component {
@@ -34,14 +34,14 @@ class index extends Component {
       isError: true,
       amount: 0,
       redirectUrl: "",
-      isErr: false,
+      isErr: 0,
     };
     this.onError = this.onError.bind(this);
   }
 
-  onError() {
+  onError(ids) {
     this.setState({
-      isErr: true,
+      isErr: ids,
     });
   }
 
@@ -98,7 +98,7 @@ class index extends Component {
   componentDidMount() {
     this.getChartData();
     this.GetHistoryUser();
-    ChartJs.register(LinearScale, CategoryScale, BarElement);
+    ChartJs.register(LinearScale, CategoryScale, BarElement, Tooltip);
   }
 
   render() {
@@ -112,7 +112,7 @@ class index extends Component {
     });
     console.log("LIST INCOME STATE", this.state.listIncome);
     const Income = {
-      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      labels: this.state.listIncome.map((x) => x.day),
       datasets: [
         {
           label: "Income",
@@ -144,6 +144,22 @@ class index extends Component {
     };
 
     const options = {
+      responsive: true,
+      interaction: {
+        intersect: false,
+        mode: "index",
+      },
+      plugins: {
+        tooltip: {
+          usePointStyle: true,
+          enabled: true,
+          position: "nearest",
+        },
+      },
+      hover: {
+        mode: "nearest",
+        intersect: true,
+      },
       maintainAspecRatio: false,
       scales: {
         y: {
@@ -160,6 +176,7 @@ class index extends Component {
       },
       responsive: true,
       legend: {
+        display: false,
         label: {
           fontSize: 14,
           fontFamily: "Nunito Sans",
@@ -221,11 +238,10 @@ class index extends Component {
               <div className={css["history-container"]}>
                 {this.state.history.length > 0 ? (
                   this.state.history.map((val) => {
-                    console.log(val.image);
                     return (
                       <div className={css["history-card"]} key={val.id}>
                         <div className={css.cardImg}>
-                          <Image src={this.state.isErr ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} /* onError={this.onError} */ alt="foto orang" width={56} height={56} />
+                          <Image src={this.state.isErr == val.id ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} onError={() => this.onError(val.id)} alt="foto orang" width={56} height={56} />
                         </div>
                         <p className={css.CardName}>{val.fullName}</p>
                         <p className={css.CardStatus}>{val.type}</p>

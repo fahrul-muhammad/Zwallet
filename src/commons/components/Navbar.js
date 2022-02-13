@@ -19,7 +19,7 @@ class Navbar extends Component {
 
   onError() {
     this.setState({
-      isError: true,
+      isError: !this.state.isError,
     });
   }
 
