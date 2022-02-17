@@ -18,14 +18,14 @@ class index extends Component {
       filter: "WEEK",
       history: [],
       page: 1,
-      isError: false,
+      isError: 0,
     };
     this.onError = this.onError.bind(this);
   }
 
-  onError() {
+  onError(ids) {
     this.setState({
-      isError: !this.state.isError,
+      isErr: ids,
     });
   }
 
@@ -149,7 +149,7 @@ class index extends Component {
                     }}
                   >
                     <div className={css.image}>
-                      <Image onError={this.onError} src={this.state.isError ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} alt="foto profile" width={60} height={60} />
+                      <Image onError={() => this.onError(val.id)} src={this.state.isError == val.id ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} alt="foto profile" width={60} height={60} />
                     </div>
                     <p className={css.name}>{val.fullName}</p>
                     <p className={css.type}>{val.type}</p>

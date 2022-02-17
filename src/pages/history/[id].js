@@ -22,7 +22,15 @@ class HistoryDetail extends Component {
     this.state = {
       id: this.props.router.query.id,
       transaction: {},
+      isError: false,
     };
+    this.onError = this.onError.bind(this);
+  }
+
+  onError() {
+    this.setState({
+      isError: !this.state.isError,
+    });
   }
 
   getHistoryDetail = () => {
@@ -47,6 +55,7 @@ class HistoryDetail extends Component {
         console.log(res.data.data);
         const { url } = res.data.data;
         console.log(url);
+        window.open(url);
       })
       .catch((err) => {
         console.log(err);
@@ -94,7 +103,7 @@ class HistoryDetail extends Component {
               <p className={css.Transfer}>{this.state.transaction.type == "accept" ? "Transfer From" : "Transfer To"}</p>
               <div className={css.userCard}>
                 <div className={css.userImage}>
-                  <Image src={Default} alt="user Image" />
+                  <Image src={this.state.isError ? Default : process.env.NEXT_PUBLIC_IMAGE + this.state.transaction.image} onError={() => this.onError()} width={70} height={70} alt="user Image" />
                 </div>
                 <p className={css.name}>{this.state.transaction.firstName + " " + this.state.transaction.lastName}</p>
                 <p className={css.phone}>___</p>

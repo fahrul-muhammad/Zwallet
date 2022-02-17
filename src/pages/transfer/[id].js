@@ -29,14 +29,14 @@ class TransferId extends Component {
       IdTransaction: [],
       pin: 0,
       showErr: false,
-      isError: false,
+      isError: 0,
     };
     this.onError = this.onError.bind(this);
   }
 
-  onError() {
+  onError(ids) {
     this.setState({
-      isError: true,
+      isErr: ids,
     });
   }
 
@@ -125,7 +125,7 @@ class TransferId extends Component {
                 {this.state.getUserDone == true ? (
                   <div className={css.userCard}>
                     <div className={css.cardImage}>
-                      <Image onError={this.onError} src={this.state.isError ? Default : process.env.NEXT_PUBLIC_IMAGE + user.image} alt="photo profile" />
+                      <Image onError={() => this.onError(val.id)} src={this.state.isError == user.id ? Default : process.env.NEXT_PUBLIC_IMAGE + user.image} height={70} width={70} alt="photo profile" />
                     </div>
                     <p className={css.cardName}>{user.firstName + " " + user.lastName}</p>
                     <p className={css.cardPhone}>{user.noTelp !== null ? user.noTelp : "___"}</p>

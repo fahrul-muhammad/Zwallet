@@ -203,6 +203,7 @@
 
 .history-card img {
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .history-card .CardName {

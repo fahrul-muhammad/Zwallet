@@ -22,14 +22,14 @@ class index extends Component {
       isSearch: false,
       search: "",
       searchResult: [],
-      isError: false,
+      isError: 0,
     };
     this.onError = this.onError.bind(this);
   }
 
-  onError() {
+  onError(ids) {
     this.setState({
-      isError: !this.state.isError,
+      isErr: ids,
     });
   }
 
@@ -139,7 +139,7 @@ class index extends Component {
                     <Link key={val.id} href={`/transfer/${val.id}`} passHref>
                       <div className={css.userCard}>
                         <div className={css.cardImage}>
-                          <Image onError={this.onError} height={70} width={70} src={this.state.isError ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} alt="photo profile" />
+                          <Image onError={() => this.onError(val.id)} height={70} width={70} src={this.state.isError == val.id ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} alt="photo profile" />
                         </div>
                         <p className={css.cardName}>{val.firstName + " " + val.lastName}</p>
                         <p className={css.cardPhone}>{val.noTelp !== null ? val.noTelp : "____"}</p>
