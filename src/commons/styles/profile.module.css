@@ -26,6 +26,10 @@
   border-radius: 10px;
 }
 
+.profilepic img:hover {
+  cursor: pointer;
+}
+
 .button {
   width: 10%;
   margin: 2% auto 1% auto;
@@ -101,4 +105,70 @@
   font-size: 30px;
   right: 5%;
   top: 20%;
+}
+
+.toast {
+  position: fixed;
+  top: 5%;
+  right: 2%;
+  border-radius: 15px;
+  width: 250px;
+  height: 50px;
+  background-color: #6379f4;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+}
+
+.toast p {
+  padding-top: 5%;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    right: 0;
+    opacity: 0;
+  }
+  to {
+    right: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    right: 0;
+    opacity: 0;
+  }
+  to {
+    right: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    right: 30px;
+    opacity: 1;
+  }
+  to {
+    right: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    right: 30px;
+    opacity: 1;
+  }
+  to {
+    right: 0;
+    opacity: 0;
+  }
 }

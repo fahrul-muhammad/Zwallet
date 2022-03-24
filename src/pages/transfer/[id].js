@@ -13,6 +13,7 @@ import PinInput from "react-pin-input";
 import { getUserById, verifyPin } from "../../modules/auth";
 
 import css from "../../commons/styles/transferId.module.css";
+import { ImageComponent } from "../../commons/components/image";
 
 class TransferId extends Component {
   constructor(props) {
@@ -125,7 +126,8 @@ class TransferId extends Component {
                 {this.state.getUserDone == true ? (
                   <div className={css.userCard}>
                     <div className={css.cardImage}>
-                      <Image onError={() => this.onError(val.id)} src={this.state.isError == user.id ? Default : process.env.NEXT_PUBLIC_IMAGE + user.image} height={70} width={70} alt="photo profile" />
+                      {/* <Image onError={() => this.onError(val.id)} src={this.state.isError == user.id ? Default : process.env.NEXT_PUBLIC_IMAGE + user.image}  height={70} width={70} alt="photo profile" /> */}
+                      <ImageComponent image={user.image} height={70} width={70} />
                     </div>
                     <p className={css.cardName}>{user.firstName + " " + user.lastName}</p>
                     <p className={css.cardPhone}>{user.noTelp !== null ? user.noTelp : "___"}</p>
@@ -160,6 +162,7 @@ class TransferId extends Component {
                       type="number"
                       name="amount"
                       placeholder="Input Money"
+                      // value={formater.format(this.state.amount)}
                       onChange={(e) => {
                         this.setState({ amount: e.target.value });
                         console.log("AMOUNT", this.state.amount);

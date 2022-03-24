@@ -13,6 +13,8 @@ class Navbar extends Component {
     super(props);
     this.state = {
       isError: false,
+      error: false,
+      loaded: false,
     };
     this.onError = this.onError.bind(this);
   }
@@ -23,15 +25,34 @@ class Navbar extends Component {
     });
   }
 
+  onImageError = () => {
+    this.setState({ error: true });
+  };
+
+  onImageLoaded = () => {
+    this.setState({ loaded: true });
+  };
+
   render() {
-    const myImage = `${process.env.NEXT_PUBLIC_IMAGE}${this.props.users.image}`;
+    const imgSrc = !this.state.error ? `${process.env.NEXT_PUBLIC_IMAGE}${this.props.users.image}` : Default;
     return (
       <nav className={styles.nav}>
         <p className={styles["title"]}>Zwallet</p>
         <div className={styles["profile"]}>
           <Link href="/profile" passHref>
             <div className="photo">
-              <Image src={this.state.isError ? Default : myImage} width={52} height={52} alt="foto profile" />
+              <Image
+                src={this.props.users.image !== null ? imgSrc : Default}
+                onLoad={() => {
+                  this.onImageLoaded();
+                }}
+                onError={() => {
+                  this.onImageError();
+                }}
+                width={52}
+                height={52}
+                alt="foto profile"
+              />
             </div>
           </Link>
 

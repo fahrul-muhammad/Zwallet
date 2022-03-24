@@ -14,6 +14,7 @@ import Layout from "../../../commons/components/Layout";
 // MODULES
 import { userPhoneNumber } from "../../../modules/Update/Users";
 import { getUserById } from "../../../modules/auth/index";
+import Loading from "../../../commons/components/Loading";
 
 class index extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class index extends Component {
       noTelp: "",
       isInput: false,
       isSuccess: false,
+      isLoading: false,
     };
   }
 
@@ -37,6 +39,7 @@ class index extends Component {
   };
 
   AddPhoneNumber = () => {
+    this.setState({ isLoading: true });
     const body = {
       noTelp: this.state.noTelp,
     };
@@ -49,6 +52,7 @@ class index extends Component {
           .then((result) => {
             const data = result.data.data;
             this.props.setUsers(data);
+            this.setState({ isLoading: false });
             setTimeout(() => {
               this.setState({ isSuccess: !this.state.isSuccess });
               console.log(this.state.isSuccess);
@@ -61,40 +65,48 @@ class index extends Component {
           })
           .catch((error) => {
             console.log(error);
+            this.setState({ isLoading: false });
           });
       })
       .catch((err) => {
         console.log(err);
+        this.setState({ isLoading: false });
       });
   };
 
   render() {
     return (
-      <Layout title="Profile | Manage Phone Number">
-        <div className={css.wrapper}>
-          <Navbar />
-          <Navigasi />
-          <div className={css.content}>
-            <h1>Add Phone Number</h1>
-            <p className={css.text}>
-              Add at least one phone number for the transfer <br /> ID so you can start transfering your money to <br /> another user.
-            </p>
-            <div className={css.input}>
-              <i className="bi bi-telephone"></i>
-              <input className="form-control shadow-none" type="text" placeholder="+62 Enter your phone number" name="noTelp" onChange={this.formChange}></input>
+      <>
+        {this.state.isLoading ? (
+          <Loading />
+        ) : (
+          <Layout title="Profile | Manage Phone Number">
+            <div className={css.wrapper}>
+              <Navbar />
+              <Navigasi />
+              <div className={css.content}>
+                <h1>Add Phone Number</h1>
+                <p className={css.text}>
+                  Add at least one phone number for the transfer <br /> ID so you can start transfering your money to <br /> another user.
+                </p>
+                <div className={css.input}>
+                  <i className="bi bi-telephone"></i>
+                  <input className="form-control shadow-none" type="text" placeholder="+62 Enter your phone number" name="noTelp" onChange={this.formChange}></input>
+                </div>
+                <div className={css.button}>
+                  <button disabled={!this.state.isInput} className="btn btn-light" onClick={this.AddPhoneNumber}>
+                    Add phone number
+                  </button>
+                </div>
+              </div>
+              <div className={css.toast} hidden={!this.state.isSuccess}>
+                <p className={css.toastText}>Add Phone Number Success</p>
+              </div>
+              <Footer />
             </div>
-            <div className={css.button}>
-              <button disabled={!this.state.isInput} className="btn btn-light" onClick={this.AddPhoneNumber}>
-                Add phone number
-              </button>
-            </div>
-          </div>
-          <div className={css.toast} hidden={!this.state.isSuccess}>
-            <p className={css.toastText}>Add Phone Number Success</p>
-          </div>
-          <Footer />
-        </div>
-      </Layout>
+          </Layout>
+        )}
+      </>
     );
   }
 }

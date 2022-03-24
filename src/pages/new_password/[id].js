@@ -40,6 +40,7 @@ class index extends Component {
       newPassword: this.state.newPassword,
       confirmPassword: this.state.confirmPassword,
     };
+    console.log("BODY", body);
     resetPassowrd(body)
       .then((res) => {
         console.log(res.data);

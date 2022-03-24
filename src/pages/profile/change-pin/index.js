@@ -12,6 +12,7 @@ import Navbar from "../../../commons/components/Navbar";
 import Navigasi from "../../../commons/components/Navigasi";
 import Footer from "../../../commons/components/Footer";
 import Layout from "../../../commons/components/Layout";
+import Loading from "../../../commons/components/Loading";
 
 class index extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class index extends Component {
       pin: 0,
       isInput: false,
       isSuccess: false,
+      loading: false,
     };
   }
 
@@ -37,12 +39,14 @@ class index extends Component {
   };
 
   editPin = () => {
+    this.setState({ loading: true });
     const token = this.props.token;
     const id = this.props.users.id;
     const pin = this.state;
     CreatePin(pin, id, token)
       .then((res) => {
         console.log(res.data);
+        this.setState({ loading: false });
         setTimeout(() => {
           this.setState({ isSuccess: !this.state.isSuccess });
           console.log(this.state.isSuccess);
@@ -55,36 +59,43 @@ class index extends Component {
       })
       .catch((err) => {
         console.log(err);
+        this.setState({ loading: false });
       });
   };
 
   render() {
     return (
-      <Layout title="Profile | Change pin">
-        <div className={css.wrapper}>
-          <Navbar />
-          <Navigasi />
-          <div className={css.content}>
-            <h1>Change PIN</h1>
-            <p className={css.text}>
-              Enter your current 6 digits Zwallet PIN below to <br />
-              continue to the next steps.
-            </p>
-            <div className={css.inputField}>
-              <PinInput length={6} onChange={this.formChange} secret type="numeric" initialValue="" inputMode="number" regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/} autoSelect={true} />
+      <>
+        {this.state.loading ? (
+          <Loading />
+        ) : (
+          <Layout title="Profile | Change pin">
+            <div className={css.wrapper}>
+              <Navbar />
+              <Navigasi />
+              <div className={css.content}>
+                <h1>Change PIN</h1>
+                <p className={css.text}>
+                  Enter your current 6 digits Zwallet PIN below to <br />
+                  continue to the next steps.
+                </p>
+                <div className={css.inputField}>
+                  <PinInput length={6} onChange={this.formChange} secret type="numeric" initialValue="" inputMode="number" regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/} autoSelect={true} />
+                </div>
+                <div className={css.button}>
+                  <button className="btn btn-light" disabled={!this.state.isInput} onClick={this.editPin}>
+                    Continue
+                  </button>
+                </div>
+              </div>
+              <div className={css.toast} hidden={!this.state.isSuccess}>
+                <p className={css.toastText}>Change Pin Success</p>
+              </div>
+              <Footer />
             </div>
-            <div className={css.button}>
-              <button className="btn btn-light" disabled={!this.state.isInput} onClick={this.editPin}>
-                Continue
-              </button>
-            </div>
-          </div>
-          <div className={css.toast} hidden={!this.state.isSuccess}>
-            <p className={css.toastText}>Change Pin Success</p>
-          </div>
-          <Footer />
-        </div>
-      </Layout>
+          </Layout>
+        )}
+      </>
     );
   }
 }

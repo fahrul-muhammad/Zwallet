@@ -101,6 +101,18 @@
   text-align: center;
 }
 
+.button button:hover {
+  background-color: #6379f4;
+  color: white;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
 .button button:disabled {
   background-color: #dadada;
   color: #88888f;
@@ -170,4 +182,8 @@
     right: 0;
     opacity: 0;
   }
+}
+
+.msg {
+  color: red;
 }

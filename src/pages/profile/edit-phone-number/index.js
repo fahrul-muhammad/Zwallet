@@ -12,17 +12,20 @@ import Navbar from "../../../commons/components/Navbar";
 import Navigasi from "../../../commons/components/Navigasi";
 import Footer from "../../../commons/components/Footer";
 import Layout from "../../../commons/components/Layout";
+import Loading from "../../../commons/components/Loading";
 
 class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isSuccess: false,
+      loading: false,
     };
   }
 
   deletPhoneNumber = () => {
     const token = this.props.token;
+    this.setState({ loading: true });
     const id = this.props.users.id;
     const body = {
       noTelp: "",
@@ -33,6 +36,7 @@ class index extends Component {
         getUserById(id, token)
           .then((result) => {
             console.log(result.data);
+            this.setState({ loading: false });
             const data = result.data.data;
             this.props.setUsers(data);
             setTimeout(() => {
@@ -47,38 +51,46 @@ class index extends Component {
           })
           .catch((error) => {
             console.log(error);
+            this.setState({ loading: false });
           });
       })
       .catch((err) => {
         console.log(err);
+        this.setState({ loading: false });
       });
   };
 
   render() {
     return (
-      <Layout title="Profile | Change pin">
-        <div className={css.wrapper}>
-          <Navbar />
-          <Navigasi />
-          <div className={css.content}>
-            <h1>Manage Phone Number</h1>
-            <p className={css.text}>
-              You can only delete the phone number and then <br /> you must add another phone number.
-            </p>
-            <div className={css.cardContainer}>
-              <div className={css.card}>
-                <p>Primary</p>
-                <p>{this.props.users.noTelp == null ? "___" : `+62 ${this.props.users.noTelp}`}</p>
-                <i className="bi bi-trash" onClick={this.deletPhoneNumber}></i>
+      <>
+        {this.state.loading ? (
+          <Loading />
+        ) : (
+          <Layout title="Profile | Change pin">
+            <div className={css.wrapper}>
+              <Navbar />
+              <Navigasi />
+              <div className={css.content}>
+                <h1>Manage Phone Number</h1>
+                <p className={css.text}>
+                  You can only delete the phone number and then <br /> you must add another phone number.
+                </p>
+                <div className={css.cardContainer}>
+                  <div className={css.card}>
+                    <p>Primary</p>
+                    <p>{this.props.users.noTelp == null ? "___" : `+62 ${this.props.users.noTelp}`}</p>
+                    <i className="bi bi-trash" onClick={this.deletPhoneNumber}></i>
+                  </div>
+                </div>
               </div>
+              <Footer />
             </div>
-          </div>
-          <Footer />
-        </div>
-        <div className={css.toast} hidden={!this.state.isSuccess}>
-          <p className={css.toastText}>Delet Phone Number Success</p>
-        </div>
-      </Layout>
+            <div className={css.toast} hidden={!this.state.isSuccess}>
+              <p className={css.toastText}>Delet Phone Number Success</p>
+            </div>
+          </Layout>
+        )}
+      </>
     );
   }
 }

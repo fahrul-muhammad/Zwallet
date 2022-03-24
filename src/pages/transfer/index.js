@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import css from "../../commons/styles/transfer.module.css";
 import Default from "../../commons/images/dummy-profile.png";
 import { getContact, SearchUser } from "../../modules/auth";
+import { ImageComponent } from "../../commons/components/image";
 
 import { Component } from "react";
 
@@ -23,6 +24,8 @@ class index extends Component {
       search: "",
       searchResult: [],
       isError: 0,
+      error: false,
+      loaded: false,
     };
     this.onError = this.onError.bind(this);
   }
@@ -111,9 +114,16 @@ class index extends Component {
     this.getAllUser();
   }
 
+  onImageLoaded = () => {
+    this.setState({ loaded: true });
+  };
+
+  onImageError = () => {
+    this.setState({ error: true });
+  };
+
   render() {
     console.log(this.state.searchResult);
-
     return (
       <Layout title="Transfer">
         <div className={css.wrapper}>
@@ -139,7 +149,7 @@ class index extends Component {
                     <Link key={val.id} href={`/transfer/${val.id}`} passHref>
                       <div className={css.userCard}>
                         <div className={css.cardImage}>
-                          <Image onError={() => this.onError(val.id)} height={70} width={70} src={this.state.isError == val.id ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} alt="photo profile" />
+                          <ImageComponent Image={val.image} height={70} width={70} />
                         </div>
                         <p className={css.cardName}>{val.firstName + " " + val.lastName}</p>
                         <p className={css.cardPhone}>{val.noTelp !== null ? val.noTelp : "____"}</p>

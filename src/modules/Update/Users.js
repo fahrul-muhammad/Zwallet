@@ -18,3 +18,10 @@ export const changePassword = (id, body, token) => {
     headers: { Authorization: "Bearer " + token },
   });
 };
+
+export const updateUserProfileImage = (id, body, token) => {
+  const URL = `${process.env.NEXT_PUBLIC_HOST}/user/image/${id}`;
+  return axios.patch(URL, body, {
+    headers: { Authorization: "Bearer " + token },
+  });
+};

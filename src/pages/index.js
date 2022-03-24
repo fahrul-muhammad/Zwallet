@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 // import half from "../commons/images/half-phone.png";
+// import half from "../commons/images/half-phone.png";
 import half from "../commons/images/half-phone.png";
 import sponsor from "../commons/images/sponsor.png";
 import tilipun from "../commons/images/tilipun.png";
@@ -13,6 +14,7 @@ import sectionHalf1 from "../commons/images/section-half1.png";
 import sectionHalf2 from "../commons/images/section-half2.png";
 import Default from "../commons/images/dummy-profile.png";
 import Layout from "../commons/components/Layout";
+import Loading from "../commons/components/Loading";
 
 import style from "../commons/styles/landing.module.css";
 
@@ -47,7 +49,7 @@ export default function Landing() {
             Sign Up
           </button>
           <div className={style.image}>
-            <Image src={half} alt="mobile aplication" />
+            <Image src={sectionHalf2} alt="mobile aplication" />
           </div>
           <p className={style.app}>
             Awesome App <br /> For Saving Time.
