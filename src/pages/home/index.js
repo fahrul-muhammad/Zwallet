@@ -13,7 +13,10 @@ import css from "../../commons/styles/Home.module.css";
 
 import { Component } from "react";
 import { withRouter } from "next/router";
-
+import { ImageComponent } from "../../commons/components/image";
+import { GetUser } from "../../modules/auth";
+import { loginAction, saveAction } from "../../redux/actions/auth";
+import { bindActionCreators } from "redux";
 // CHART
 import { Chart as ChartJs, BarElement, LinearScale, CategoryScale, Tooltip } from "chart.js";
 import { Bar } from "react-chartjs-2";
@@ -33,6 +36,9 @@ class index extends Component {
       amount: 0,
       redirectUrl: "",
       isErr: 0,
+      inputAmount: { amountValue: "", realAmount: "" },
+      format: "",
+      loading: false,
     };
     this.onError = this.onError.bind(this);
   }
@@ -98,6 +104,53 @@ class index extends Component {
     this.GetHistoryUser();
     ChartJs.register(LinearScale, CategoryScale, BarElement, Tooltip);
   }
+
+  numberToRupiah = (bilangan) => {
+    console.log("input numtorup", bilangan);
+    let separator = "";
+    let number_string = bilangan;
+    if (typeof bilangan === "number") {
+      number_string = bilangan.toString();
+    }
+    let sisa = number_string.length % 3,
+      rupiah = number_string.substr(0, sisa),
+      ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+    if (ribuan) {
+      separator = sisa ? "." : "";
+      rupiah += separator + ribuan.join(".");
+    }
+    return rupiah;
+  };
+
+  onFocusPrice = (e) => {
+    e.target.type = "number";
+    e.target.value = this.state.format;
+  };
+
+  priceHandler = (e) => {
+    const priceFormat = this.numberToRupiah(e.target.value);
+    this.setState({
+      inputAmount: {
+        amountValue: priceFormat,
+        realAmount: e.target.value,
+      },
+    });
+    e.target.type = "text";
+    e.target.value = `Rp. ${priceFormat}`;
+    console.log("type priceformat:", priceFormat);
+  };
+
+  getUserData = async () => {
+    try {
+      const result = await GetUser(this.props.token, this.props.users.id);
+      console.log(result.data.data);
+      this.props.setUsers(result.data.data);
+      this.GetHistoryUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   render() {
     const { router } = this.props;
@@ -239,7 +292,8 @@ class index extends Component {
                     return (
                       <div className={css["history-card"]} key={val.id}>
                         <div className={css.cardImg}>
-                          <Image src={this.state.isErr == val.id ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} onError={() => this.onError(val.id)} alt="foto orang" width={56} height={56} />
+                          {/* <Image src={this.state.isErr == val.id ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} onError={() => this.onError(val.id)} alt="foto orang" width={56} height={56} /> */}
+                          <ImageComponent image={val.image} width={56} height={56} />
                         </div>
                         <p className={css.CardName}>{val.fullName}</p>
                         <p className={css.CardStatus}>{val.type}</p>
@@ -276,10 +330,31 @@ class index extends Component {
             <p className={css.textModal}>
               Enter the amount of money, and click <br /> submit
             </p>
-            <input className={`form-control shadow-none ${css["modal-input"]}`} type="number" placeholder="" name="amount" aria-label="default input example" onChange={this.formChange} />
+            <input
+              className={`form-control shadow-none ${css["modal-input"]}`}
+              type="number"
+              placeholder=""
+              name="amount"
+              onBlur={(e) => {
+                this.priceHandler(e);
+              }}
+              onFocus={(e) => {
+                this.onFocusPrice(e);
+              }}
+              autoComplete="off"
+              autoFocus
+              aria-label="default input example"
+              onChange={(e) => {
+                this.formChange(e);
+                this.setState({ format: formater.format(e.target.value) });
+              }}
+            />
             <p className={css.successTopUp} hidden={this.state.isSuccess}>
               <Link href={this.state.redirectUrl} passHref>
-                <a target="_blank"> Top Up success,Please Pay Top up</a>
+                <a onClick={this.getUserData()} target="_blank">
+                  {" "}
+                  Top Up success,Please Pay Top up
+                </a>
               </Link>
             </p>
             <p className={css.errorTopup} hidden={this.state.isError}>
@@ -304,4 +379,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(index));
+const mapDispatchToPropps = (dispacth) => {
+  return {
+    setUsers: bindActionCreators(saveAction, dispacth),
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToPropps)(index));

@@ -14,11 +14,7 @@ export const ImageComponent = (props) => {
     setError(true);
   };
 
-  /* 
-  this.state.isError == val.id ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image
-  */
-
-  let imgSrc = props.image === null ? Default : !error ? process.env.NEXT_PUBLIC_IMAGE + props.image : Default;
+  const imgSrc = props.image === null ? Default : !error ? process.env.NEXT_PUBLIC_IMAGE + props.image : Default;
 
   return (
     <>

@@ -3,6 +3,7 @@ import { withRouter } from "next/router";
 import css from "../../commons/styles/Historyid.module.css";
 import { connect } from "react-redux";
 import { GetHistoryById, exportTransaction } from "../../modules/transaction/index";
+import Loading from "../../commons/components/Loading";
 
 // COMPONENTS
 import Layout from "../../commons/components/Layout";
@@ -72,58 +73,65 @@ class HistoryDetail extends Component {
       currency: "IDR",
       minimumFractionDigits: 2,
     });
-    console.log(this.state);
+    console.log("TRANSACTION", this.state.transaction);
+    // Object.keys(obj).length === 0
     return (
-      <Layout title="History Detial">
-        <div className={css.wrapper}>
-          <Navbar />
-          <Aside />
-          <div className={css.content}>
-            <div className={css.Image}>
-              <Image src={this.state.transaction.status == "success" ? Success : Failed} alt="status image" />
-            </div>
-            <p className={css.Status}>{this.state.transaction.status == "success" ? "Transaction Success" : "Transaction Failed"}</p>
-            <div className={css.cardContainer}>
-              <div className={css.Card}>
-                <p>Amount</p>
-                <p>{formater.format(this.state.transaction.amount)}</p>
-              </div>
-              <div className={css.Card}>
-                <p>Balance left</p>
-                <p>{formater.format(this.props.users.balance)}</p>
-              </div>
-              <div className={css.Card}>
-                <p>Date & time </p>
-                <p>{this.state.transaction.createdAt}</p>
-              </div>
-              <div className={css.Card}>
-                <p>Notes</p>
-                <p>{this.state.transaction.notes}</p>
-              </div>
-              <p className={css.Transfer}>{this.state.transaction.type == "accept" ? "Transfer From" : "Transfer To"}</p>
-              <div className={css.userCard}>
-                <div className={css.userImage}>
-                  <Image src={this.state.isError ? Default : process.env.NEXT_PUBLIC_IMAGE + this.state.transaction.image} onError={() => this.onError()} width={70} height={70} alt="user Image" />
+      <>
+        {Object.keys(this.state.transaction).length === 0 ? (
+          <Loading />
+        ) : (
+          <Layout title="History Detial">
+            <div className={css.wrapper}>
+              <Navbar />
+              <Aside />
+              <div className={css.content}>
+                <div className={css.Image}>
+                  <Image src={this.state.transaction.status == "success" ? Success : Failed} alt="status image" />
                 </div>
-                <p className={css.name}>{this.state.transaction.firstName + " " + this.state.transaction.lastName}</p>
-                <p className={css.phone}>___</p>
+                <p className={css.Status}>{this.state.transaction.status == "success" ? "Transaction Success" : "Transaction Failed"}</p>
+                <div className={css.cardContainer}>
+                  <div className={css.Card}>
+                    <p>Amount</p>
+                    <p>{formater.format(this.state.transaction.amount)}</p>
+                  </div>
+                  <div className={css.Card}>
+                    <p>Balance left</p>
+                    <p>{formater.format(this.props.users.balance - this.state.transaction.amount)}</p>
+                  </div>
+                  <div className={css.Card}>
+                    <p>Date & time </p>
+                    <p>{this.state.transaction.createdAt}</p>
+                  </div>
+                  <div className={css.Card}>
+                    <p>Notes</p>
+                    <p>{this.state.transaction.notes}</p>
+                  </div>
+                  <p className={css.Transfer}>{this.state.transaction.type == "accept" ? "Transfer From" : "Transfer To"}</p>
+                  <div className={css.userCard}>
+                    <div className={css.userImage}>
+                      <Image src={this.state.isError ? Default : process.env.NEXT_PUBLIC_IMAGE + this.state.transaction.image} onError={() => this.onError()} width={70} height={70} alt="user Image" />
+                    </div>
+                    <p className={css.name}>{this.state.transaction.firstName + " " + this.state.transaction.lastName}</p>
+                    <p className={css.phone}>___</p>
+                  </div>
+                </div>
+                <button className={`btn btn-light ${css.btnExport}`} onClick={this.export}>
+                  Export
+                </button>
+                <button
+                  className={`btn btn-light ${css.btnHome}`}
+                  onClick={() => {
+                    this.props.router.push("/home");
+                  }}
+                >
+                  Back to home
+                </button>
               </div>
+              <Footer />
             </div>
-            <button className={`btn btn-light ${css.btnExport}`} onClick={this.export}>
-              Export
-            </button>
-            <button
-              className={`btn btn-light ${css.btnHome}`}
-              onClick={() => {
-                this.props.router.push("/home");
-              }}
-            >
-              Back to home
-            </button>
-          </div>
-          <Footer />
-        </div>
-      </Layout>
+          </Layout>
+        )}
+      </>
     );
   }
 }

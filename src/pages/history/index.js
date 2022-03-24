@@ -10,6 +10,7 @@ import { withRouter } from "next/router";
 import { getAllHistory } from "../../modules/transaction/index";
 import Default from "../../commons/images/dummy-profile.png";
 import Link from "next/link";
+import { ImageComponent } from "../../commons/components/image";
 
 class index extends Component {
   constructor(props) {
@@ -149,7 +150,8 @@ class index extends Component {
                     }}
                   >
                     <div className={css.image}>
-                      <Image onError={() => this.onError(val.id)} src={this.state.isError == val.id ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} alt="foto profile" width={60} height={60} />
+                      {/* <Image onError={() => this.onError(val.id)} src={this.state.isError == val.id ? Default : process.env.NEXT_PUBLIC_IMAGE + val.image} alt="foto profile" width={60} height={60} /> */}
+                      <ImageComponent image={val.image} width={60} height={60} />
                     </div>
                     <p className={css.name}>{val.fullName}</p>
                     <p className={css.type}>{val.type}</p>
